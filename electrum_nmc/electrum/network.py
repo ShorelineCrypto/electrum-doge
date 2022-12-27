@@ -199,7 +199,7 @@ class TxBroadcastHashMismatch(TxBroadcastError):
     def get_message_for_gui(self):
         return "{}\n{}\n\n{}" \
             .format(_("The server returned an unexpected transaction ID when broadcasting the transaction."),
-                    _("Consider trying to connect to a different server, or updating Electrum-NMC."),
+                    _("Consider trying to connect to a different server, or updating Electrum-DOGE."),
                     str(self))
 
 
@@ -207,7 +207,7 @@ class TxBroadcastServerReturnedError(TxBroadcastError):
     def get_message_for_gui(self):
         return "{}\n{}\n\n{}" \
             .format(_("The server returned an error when broadcasting the transaction."),
-                    _("Consider trying to connect to a different server, or updating Electrum-NMC."),
+                    _("Consider trying to connect to a different server, or updating Electrum-DOGE."),
                     str(self))
 
 
@@ -215,7 +215,7 @@ class TxBroadcastUnknownError(TxBroadcastError):
     def get_message_for_gui(self):
         return "{}\n{}" \
             .format(_("Unknown error when broadcasting the transaction."),
-                    _("Consider trying to connect to a different server, or updating Electrum-NMC."))
+                    _("Consider trying to connect to a different server, or updating Electrum-DOGE."))
 
 
 class UntrustedServerReturnedError(NetworkException):
@@ -974,7 +974,7 @@ class Network(Logger, NetworkRetryManager[ServerAddr]):
         for substring in validation_error_messages:
             if substring in server_msg:
                 return substring
-        # https://github.com/namecoin/namecoin-core/blob/b4ffd61ac6392a47209b9067f31439f34958109e/src/names/main.cpp
+        # https://github.com/dogecoin/dogecoin-core/blob/b4ffd61ac6392a47209b9067f31439f34958109e/src/names/main.cpp
         # grep "TxValidationResult"
         name_validation_error_messages_friendly = {
             r"Multiple name inputs",
@@ -1001,7 +1001,7 @@ class Network(Logger, NetworkRetryManager[ServerAddr]):
         for substring in name_validation_error_messages_friendly:
             if substring in server_msg:
                 return substring
-        # https://github.com/namecoin/namecoin-core/blob/b4ffd61ac6392a47209b9067f31439f34958109e/src/names/main.cpp
+        # https://github.com/dogecoin/dogecoin-core/blob/b4ffd61ac6392a47209b9067f31439f34958109e/src/names/main.cpp
         # grep "TxValidationResult"
         name_validation_error_messages = {
             r"tx-multiple-name-inputs",
@@ -1044,7 +1044,7 @@ class Network(Logger, NetworkRetryManager[ServerAddr]):
         for substring in rawtransaction_error_messages:
             if substring in server_msg:
                 return substring
-        # https://github.com/namecoin/namecoin-core/blob/b4ffd61ac6392a47209b9067f31439f34958109e/src/rpc/names.cpp
+        # https://github.com/dogecoin/dogecoin-core/blob/b4ffd61ac6392a47209b9067f31439f34958109e/src/rpc/names.cpp
         # grep "RPC_DESERIALIZATION_ERROR"
         name_rawtransaction_error_messages = {
             r"rand must be hex",

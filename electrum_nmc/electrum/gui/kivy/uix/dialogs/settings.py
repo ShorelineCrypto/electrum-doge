@@ -17,7 +17,7 @@ Builder.load_string('''
 
 <SettingsDialog@Popup>
     id: settings
-    title: _('Electrum-NMC Settings')
+    title: _('Electrum-DOGE Settings')
     has_pin_code: False
     use_encryption: False
     BoxLayout:
@@ -44,7 +44,7 @@ Builder.load_string('''
                 SettingsItem:
                     bu: app.base_unit
                     title: _('Denomination') + ': ' + self.bu
-                    description: _("Base unit for Namecoin amounts.")
+                    description: _("Base unit for Dogecoin amounts.")
                     action: partial(root.unit_dialog, self)
                 CardSeparator
                 SettingsItem:
@@ -193,7 +193,7 @@ class SettingsDialog(Factory.Popup):
                 net_params = net_params._replace(proxy=proxy)
                 network.run_from_another_thread(network.set_parameters(net_params))
                 item.status = self.proxy_status()
-            popup = Builder.load_file('electrum_nmc/electrum/gui/kivy/uix/ui_screens/proxy.kv')
+            popup = Builder.load_file('electrum_doge/electrum/gui/kivy/uix/ui_screens/proxy.kv')
             popup.ids.mode.text = proxy.get('mode') if proxy else 'None'
             popup.ids.host.text = proxy.get('host') if proxy else ''
             popup.ids.port.text = proxy.get('port') if proxy else ''

@@ -49,7 +49,7 @@ def _shorten_name_of_logrecord(record: logging.LogRecord) -> logging.LogRecord:
     # strip the main module name from the logger name
     if record.name.startswith("electrum."):
         record.name = record.name[9:]
-    if record.name.startswith("electrum_nmc."):
+    if record.name.startswith("electrum_doge."):
         record.name = record.name[13:]
     # manual map to shorten common module names
     record.name = record.name.replace("interface.Interface", "interface", 1)
@@ -71,12 +71,12 @@ console_stderr_handler.setLevel(logging.WARNING)
 root_logger.addHandler(console_stderr_handler)
 
 # creates a logger specifically for electrum library
-electrum_logger = logging.getLogger("electrum_nmc")
+electrum_logger = logging.getLogger("electrum_doge")
 electrum_logger.setLevel(logging.DEBUG)
 
 
 def _delete_old_logs(path, keep=10):
-    files = sorted(list(pathlib.Path(path).glob("electrum_nmc_log_*.log")), reverse=True)
+    files = sorted(list(pathlib.Path(path).glob("electrum_doge_log_*.log")), reverse=True)
     for f in files[keep:]:
         os.remove(str(f))
 
@@ -91,7 +91,7 @@ def _configure_file_logging(log_directory: pathlib.Path):
 
     timestamp = datetime.datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
     PID = os.getpid()
-    _logfile_path = log_directory / f"electrum_nmc_log_{timestamp}_{PID}.log"
+    _logfile_path = log_directory / f"electrum_doge_log_{timestamp}_{PID}.log"
 
     file_handler = logging.FileHandler(_logfile_path, encoding='utf-8')
     file_handler.setFormatter(file_formatter)
@@ -192,7 +192,7 @@ class ShortcutFilteringFilter(logging.Filter):
 def get_logger(name: str) -> logging.Logger:
     if name.startswith("electrum."):
         name = name[9:]
-    if name.startswith("electrum_nmc."):
+    if name.startswith("electrum_doge."):
         name = name[13:]
     return electrum_logger.getChild(name)
 
@@ -251,7 +251,7 @@ def configure_logging(config):
 
     from . import ELECTRUM_VERSION
     from .constants import GIT_REPO_URL
-    _logger.info(f"Electrum-NMC version: {ELECTRUM_VERSION} - https://www.namecoin.org - {GIT_REPO_URL}")
+    _logger.info(f"Electrum-DOGE version: {ELECTRUM_VERSION} - https://www.dogecoin.org - {GIT_REPO_URL}")
     _logger.info(f"Python version: {sys.version}. On platform: {describe_os_version()}")
     _logger.info(f"Logging to file: {str(_logfile_path)}")
     _logger.info(f"Log filters: verbosity {repr(verbosity)}, verbosity_shortcuts {repr(verbosity_shortcuts)}")

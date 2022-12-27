@@ -73,9 +73,9 @@ def inv_dict(d):
 ca_path = certifi.where()
 
 
-base_units = {'NMC':8, 'mNMC':5, 'uNMC':2, 'swartz':0}
+base_units = {'DOGE':8, 'mDOGE':5, 'uDOGE':2, 'swartz':0}
 base_units_inverse = inv_dict(base_units)
-base_units_list = ['NMC', 'mNMC', 'uNMC', 'swartz']  # list(dict) does not guarantee order
+base_units_list = ['DOGE', 'mDOGE', 'uDOGE', 'swartz']  # list(dict) does not guarantee order
 
 DECIMAL_POINT_DEFAULT = 5  # mBTC
 
@@ -449,7 +449,7 @@ def assert_datadir_available(config_path):
         return
     else:
         raise FileNotFoundError(
-            'Electrum-NMC datadir does not exist. Was it deleted while running?' + '\n' +
+            'Electrum-DOGE datadir does not exist. Was it deleted while running?' + '\n' +
             'Should be at {}'.format(path))
 
 
@@ -552,11 +552,11 @@ def user_dir():
     elif 'ANDROID_DATA' in os.environ:
         return android_data_dir()
     elif os.name == 'posix':
-        return os.path.join(os.environ["HOME"], ".electrum-nmc")
+        return os.path.join(os.environ["HOME"], ".electrum-doge")
     elif "APPDATA" in os.environ:
-        return os.path.join(os.environ["APPDATA"], "Electrum-NMC")
+        return os.path.join(os.environ["APPDATA"], "Electrum-DOGE")
     elif "LOCALAPPDATA" in os.environ:
-        return os.path.join(os.environ["LOCALAPPDATA"], "Electrum-NMC")
+        return os.path.join(os.environ["LOCALAPPDATA"], "Electrum-DOGE")
     else:
         #raise Exception("No home directory found in environment variables.")
         return
@@ -739,15 +739,15 @@ def time_difference(distance_in_time, include_seconds):
         return "over %d years" % (round(distance_in_minutes / 525600))
 
 mainnet_block_explorers = {
-    'Cyphrs.com': ('https://namecoin.cyphrs.com/',
+    'Cyphrs.com': ('https://dogecoin.cyphrs.com/',
                         {'tx': 'tx/', 'addr': 'address/'}),
     'Namebrow.se (non-libre)': ('https://www.namebrow.se/',
                         {'tx': 'tx/', 'addr': 'address/'}),
     'Namecha.in (non-libre; wiretapped by Cloudflare; discriminates against Tor)': ('https://namecha.in/',
                         {'tx': 'tx/', 'addr': 'address/'}),
-    'Bchain.info (non-libre; no name support)': ('https://bchain.info/NMC/',
+    'Bchain.info (non-libre; no name support)': ('https://bchain.info/DOGE/',
                         {'tx': 'tx/', 'addr': 'addr/'}),
-    'BitInfoCharts.com (non-libre; wiretapped by Cloudflare; discriminates against Tor; no name support)': ('https://bitinfocharts.com/namecoin/',
+    'BitInfoCharts.com (non-libre; wiretapped by Cloudflare; discriminates against Tor; no name support)': ('https://bitinfocharts.com/dogecoin/',
                         {'tx': 'tx/', 'addr': 'address/'}),
     'mynode.local': ('http://mynode.local:3002/',
                         {'tx': 'tx/', 'addr': 'address/'}),
@@ -803,12 +803,12 @@ def parse_URI(uri: str, on_pr: Callable = None, *, loop=None) -> dict:
 
     if ':' not in uri:
         if not bitcoin.is_address(uri):
-            raise InvalidBitcoinURI("Not a namecoin address")
+            raise InvalidBitcoinURI("Not a dogecoin address")
         return {'address': uri}
 
     u = urllib.parse.urlparse(uri)
-    if u.scheme != 'namecoin':
-        raise InvalidBitcoinURI("Not a namecoin URI")
+    if u.scheme != 'dogecoin':
+        raise InvalidBitcoinURI("Not a dogecoin URI")
     address = u.path
 
     # python for android fails to parse query
@@ -825,7 +825,7 @@ def parse_URI(uri: str, on_pr: Callable = None, *, loop=None) -> dict:
     out = {k: v[0] for k, v in pq.items()}
     if address:
         if not bitcoin.is_address(address):
-            raise InvalidBitcoinURI(f"Invalid namecoin address: {address}")
+            raise InvalidBitcoinURI(f"Invalid dogecoin address: {address}")
         out['address'] = address
     if 'amount' in out:
         am = out['amount']
@@ -895,7 +895,7 @@ def create_bip21_uri(addr, amount_sat: Optional[int], message: Optional[str],
             raise Exception(f"illegal key for URI: {repr(k)}")
         v = urllib.parse.quote(v)
         query.append(f"{k}={v}")
-    p = urllib.parse.ParseResult(scheme='namecoin', netloc='', path=addr, params='', query='&'.join(query), fragment='')
+    p = urllib.parse.ParseResult(scheme='dogecoin', netloc='', path=addr, params='', query='&'.join(query), fragment='')
     return str(urllib.parse.urlunparse(p))
 
 

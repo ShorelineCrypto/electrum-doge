@@ -153,7 +153,7 @@ class ExchangeBase(Logger):
         return sorted([str(a) for (a, b) in rates.items() if b is not None and len(a)==3])
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class BitcoinAverage(ExchangeBase):
     # note: historical rates used to be freely available
@@ -167,7 +167,7 @@ class BitcoinAverage(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class Bitcointoyou(ExchangeBase):
 
@@ -177,7 +177,7 @@ class Bitcointoyou(ExchangeBase):
 
 """
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class BitcoinVenezuela(ExchangeBase):
 
@@ -197,7 +197,7 @@ class BitcoinVenezuela(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class Bitbank(ExchangeBase):
 
@@ -207,7 +207,7 @@ class Bitbank(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class BitFlyer(ExchangeBase):
 
@@ -217,7 +217,7 @@ class BitFlyer(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class BitPay(ExchangeBase):
 
@@ -227,7 +227,7 @@ class BitPay(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class Bitso(ExchangeBase):
 
@@ -237,7 +237,7 @@ class Bitso(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class BitStamp(ExchangeBase):
 
@@ -252,7 +252,7 @@ class BitStamp(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class Bitvalor(ExchangeBase):
 
@@ -262,7 +262,7 @@ class Bitvalor(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class BlockchainInfo(ExchangeBase):
 
@@ -272,7 +272,7 @@ class BlockchainInfo(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class Bylls(ExchangeBase):
 
@@ -282,7 +282,7 @@ class Bylls(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class Coinbase(ExchangeBase):
 
@@ -296,13 +296,13 @@ class Coinbase(ExchangeBase):
 class CoinCap(ExchangeBase):
 
     async def get_rates(self, ccy):
-        # CoinCap rates API is broken for Namecoin.  Use history API instead.
+        # CoinCap rates API is broken for Dogecoin.  Use history API instead.
         """
-        json = await self.get_json('api.coincap.io', '/v2/rates/namecoin/')
+        json = await self.get_json('api.coincap.io', '/v2/rates/dogecoin/')
         return {'USD': Decimal(json['data']['rateUsd'])}
         """
         history = await self.get_json('api.coincap.io',
-                                      '/v2/assets/namecoin/history?interval=d1&limit=2000')
+                                      '/v2/assets/dogecoin/history?interval=d1&limit=2000')
         return {'USD': Decimal(json['data'][-1]['priceUsd'])}
 
     def history_ccys(self):
@@ -312,12 +312,12 @@ class CoinCap(ExchangeBase):
         # Currently 2000 days is the maximum in 1 API call
         # (and history starts on 2017-03-23)
         history = await self.get_json('api.coincap.io',
-                                      '/v2/assets/namecoin/history?interval=d1&limit=2000')
+                                      '/v2/assets/dogecoin/history?interval=d1&limit=2000')
         return dict([(datetime.utcfromtimestamp(h['time']/1000).strftime('%Y-%m-%d'), h['priceUsd'])
                      for h in history['data']])
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class CoinDesk(ExchangeBase):
 
@@ -352,13 +352,13 @@ class CoinDesk(ExchangeBase):
 class CoinGecko(ExchangeBase):
 
     async def get_rates(self, ccy):
-        # CoinGecko exchange_rates API is unavailable for Namecoin.  Use coins API instead.
+        # CoinGecko exchange_rates API is unavailable for Dogecoin.  Use coins API instead.
         """
         json = await self.get_json('api.coingecko.com', '/api/v3/exchange_rates')
         return dict([(ccy.upper(), Decimal(d['value']))
                      for ccy, d in json['rates'].items()])
         """
-        json = await self.get_json('api.coingecko.com', '/api/v3/coins/namecoin')
+        json = await self.get_json('api.coingecko.com', '/api/v3/coins/dogecoin')
         return dict([(ccy.upper(), Decimal(d['value']))
                      for ccy, d in json['market_data']['current_price'].items()])
 
@@ -368,7 +368,7 @@ class CoinGecko(ExchangeBase):
 
     async def request_history(self, ccy):
         history = await self.get_json('api.coingecko.com',
-                                      '/api/v3/coins/namecoin/market_chart?vs_currency=%s&days=max' % ccy)
+                                      '/api/v3/coins/dogecoin/market_chart?vs_currency=%s&days=max' % ccy)
 
         return dict([(datetime.utcfromtimestamp(h[0]/1000).strftime('%Y-%m-%d'), h[1])
                      for h in history['prices']])
@@ -394,7 +394,7 @@ class itBit(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class Kraken(ExchangeBase):
 
@@ -408,7 +408,7 @@ class Kraken(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class LocalBitcoins(ExchangeBase):
 
@@ -419,7 +419,7 @@ class LocalBitcoins(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class MercadoBitcoin(ExchangeBase):
 
@@ -439,7 +439,7 @@ class TheRockTrading(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class Winkdex(ExchangeBase):
 
@@ -459,7 +459,7 @@ class Winkdex(ExchangeBase):
 """
 
 
-# Doesn't support Namecoin.
+# Doesn't support Dogecoin.
 """
 class Zaif(ExchangeBase):
     async def get_rates(self, ccy):

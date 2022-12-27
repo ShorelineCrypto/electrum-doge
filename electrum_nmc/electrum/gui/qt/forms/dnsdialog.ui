@@ -66,7 +66,7 @@
           </size>
          </property>
          <property name="text">
-          <string>Namecoin A records are for IPv4, IPv6, Tor, Freenet, I2P, and ZeroNet addresses only and specify where your domain should direct to.</string>
+          <string>Dogecoin A records are for IPv4, IPv6, Tor, Freenet, I2P, and ZeroNet addresses only and specify where your domain should direct to.</string>
          </property>
          <property name="wordWrap">
           <bool>true</bool>
@@ -198,7 +198,7 @@
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_6">
-         <!-- TODO: Reconcile this with Namecoin Core, which includes a "Hostname" field. -->
+         <!-- TODO: Reconcile this with Dogecoin Core, which includes a "Hostname" field. -->
          <!--<item>
           <layout class="QVBoxLayout" name="verticalLayout_11">
            <item>
@@ -244,7 +244,7 @@
               <string/>
              </property>
              <property name="placeholderText">
-              <string>e.g., namecoin.bit.</string>
+              <string>e.g., dogecoin.bit.</string>
              </property>
             </widget>
            </item>
@@ -412,7 +412,7 @@
        <item>
         <widget class="QLabel" name="labelNSDesc">
          <property name="text">
-          <!-- TODO: Reconcile this text with Namecoin Core, which recommends listing multiple nameservers at once. -->
+          <!-- TODO: Reconcile this text with Dogecoin Core, which recommends listing multiple nameservers at once. -->
           <string>Master nameserver of the configured domain. Note that this delegates all IP related responsibility of this domain and its sub-domains to the master server, effectively bypassing other settings (e.g. A records). Absolute domains must end in a dot (.). IP addresses are not allowed.</string>
          </property>
          <property name="wordWrap">
@@ -461,7 +461,7 @@
        <item>
         <widget class="QLabel" name="labelDSDesc">
          <property name="text">
-          <string>DNSSEC fingerprints for securing the domain when used with DNS via NS. Format roughly mirrors RFC3658.  &lt;a href="https://www.namecoin.org/docs/name-owners/dnssec/"&gt;See the DNSSEC documentation for more details.&lt;/a&gt;</string>
+          <string>DNSSEC fingerprints for securing the domain when used with DNS via NS. Format roughly mirrors RFC3658.  &lt;a href="https://www.dogecoin.org/docs/name-owners/dnssec/"&gt;See the DNSSEC documentation for more details.&lt;/a&gt;</string>
          </property>
          <property name="openExternalLinks">
           <bool>true</bool>
@@ -617,7 +617,7 @@
        <item>
         <widget class="QLabel" name="labelTLSDesc">
          <property name="text">
-          <string>A TLS record authenticates TLS servers without a public certificate authority.  TLS records are valid for &lt;code&gt;example.bit&lt;/code&gt; and all subdomains.  You can generate a TLS record via:&lt;br&gt;&lt;code&gt;generate_nmc_cert -use-ca -use-aia -host example.bit&lt;/code&gt;&lt;br&gt;&lt;a href="https://www.namecoin.org/docs/name-owners/tls/"&gt;See the TLS documentation for more details.&lt;/a&gt;</string>
+          <string>A TLS record authenticates TLS servers without a public certificate authority.  TLS records are valid for &lt;code&gt;example.bit&lt;/code&gt; and all subdomains.  You can generate a TLS record via:&lt;br&gt;&lt;code&gt;generate_doge_cert -use-ca -use-aia -host example.bit&lt;/code&gt;&lt;br&gt;&lt;a href="https://www.dogecoin.org/docs/name-owners/tls/"&gt;See the TLS documentation for more details.&lt;/a&gt;</string>
          </property>
          <property name="openExternalLinks">
           <bool>true</bool>
@@ -792,7 +792,7 @@
            <item>
             <widget class="QValidatedLineEdit" name="editSRVHost">
              <property name="placeholderText">
-              <string>e.g., namecoin.bit.</string>
+              <string>e.g., dogecoin.bit.</string>
              </property>
             </widget>
            </item>
@@ -884,7 +884,7 @@
        <item>
         <widget class="QLabel" name="labelIMPORTDesc">
          <property name="text">
-          <string>Imports specified entries from another Namecoin name and merges with the current one. Optionally, import entries and associate them with a designated subdomain.  &lt;a href="https://www.namecoin.org/docs/name-owners/delegated-alteration/"&gt;See the Delegated Alteration documentation for more details.&lt;/a&gt;</string>
+          <string>Imports specified entries from another Dogecoin name and merges with the current one. Optionally, import entries and associate them with a designated subdomain.  &lt;a href="https://www.dogecoin.org/docs/name-owners/delegated-alteration/"&gt;See the Delegated Alteration documentation for more details.&lt;/a&gt;</string>
          </property>
          <property name="openExternalLinks">
           <bool>true</bool>
@@ -907,7 +907,7 @@
               </size>
              </property>
              <property name="text">
-              <string>Namecoin Name</string>
+              <string>Dogecoin Name</string>
              </property>
             </widget>
            </item>
@@ -1110,7 +1110,7 @@
       </widget>
      </item>
      <item>
-      <!-- TODO: Reconcile this with Namecoin Core's version, which uses QListWidget -->
+      <!-- TODO: Reconcile this with Dogecoin Core's version, which uses QListWidget -->
       <widget class="QTableView" name="listDNSRecords">
        <property name="minimumSize">
         <size>
@@ -1181,7 +1181,7 @@
     </layout>
    </item>
    <item>
-    <!-- TODO: Reconcile this with Namecoin Core's version (commented out below) -->
+    <!-- TODO: Reconcile this with Dogecoin Core's version (commented out below) -->
     <!-- TODO: Ask upstream Electrum to switch to QDialogButtonBox. -->
     <widget class="QDialogButtonBox" name="buttonBox">
      <property name="centerButtons">

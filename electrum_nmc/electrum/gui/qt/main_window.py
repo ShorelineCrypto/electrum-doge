@@ -218,8 +218,8 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         tabs.addTab(self.create_history_tab(), read_QIcon("tab_history.png"), _('History'))
         tabs.addTab(self.send_tab, read_QIcon("tab_send.png"), _('Send'))
         tabs.addTab(self.receive_tab, read_QIcon("tab_receive.png"), _('Receive'))
-        tabs.addTab(self.buy_names_tab, read_QIcon("namecoin-logo.png"), _('Buy Names'))
-        tabs.addTab(self.names_tab, read_QIcon("namecoin-logo.png"), _('Manage Names'))
+        tabs.addTab(self.buy_names_tab, read_QIcon("dogecoin-logo.png"), _('Buy Names'))
+        tabs.addTab(self.names_tab, read_QIcon("dogecoin-logo.png"), _('Manage Names'))
 
         def add_optional_tab(tabs, tab, icon, description, name):
             tab.tab_icon = icon
@@ -248,7 +248,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         if self.config.get("is_maximized"):
             self.showMaximized()
 
-        self.setWindowIcon(read_QIcon("electrum_nmc.png"))
+        self.setWindowIcon(read_QIcon("electrum_doge.png"))
         self.init_menubar()
 
         wrtabs = weakref.proxy(tabs)
@@ -293,9 +293,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
 
         # If the option hasn't been set yet
         if config.get('check_updates') is None:
-            choice = self.question(title="Electrum-NMC - " + _("Enable update check"),
-                                   msg=_("For security reasons we advise that you always use the latest version of Electrum-NMC.") + " " +
-                                       _("Would you like to be notified when there is a newer version of Electrum-NMC available?"))
+            choice = self.question(title="Electrum-DOGE - " + _("Enable update check"),
+                                   msg=_("For security reasons we advise that you always use the latest version of Electrum-DOGE.") + " " +
+                                       _("Would you like to be notified when there is a newer version of Electrum-DOGE available?"))
             config.set_key('check_updates', bool(choice), save=True)
 
         if config.get('check_updates', False):
@@ -303,7 +303,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
             # to prevent GC from getting in our way.
             def on_version_received(v):
                 if UpdateCheck.is_newer(v):
-                    self.update_check_button.setText(_("Update to Electrum-NMC {} is available").format(v))
+                    self.update_check_button.setText(_("Update to Electrum-DOGE {} is available").format(v))
                     self.update_check_button.clicked.connect(lambda: self.show_update_check(v))
                     self.update_check_button.show()
             self._update_check_thread = UpdateCheckThread()
@@ -539,7 +539,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
             self.setGeometry(100, 100, 840, 400)
 
     def watching_only_changed(self):
-        name = "Electrum-NMC Testnet" if constants.net.TESTNET else "Electrum-NMC"
+        name = "Electrum-DOGE Testnet" if constants.net.TESTNET else "Electrum-DOGE"
         title = '%s %s  -  %s' % (name, ELECTRUM_VERSION,
                                         self.wallet.basename())
         extra = [self.wallet.db.get('wallet_type', '?')]
@@ -556,8 +556,8 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         if self.wallet.is_watching_only():
             msg = ' '.join([
                 _("This wallet is watching-only."),
-                _("This means you will not be able to spend Namecoins or update names with it."),
-                _("Make sure you own the seed phrase or the private keys, before you request Namecoins or names to be sent to this wallet.")
+                _("This means you will not be able to spend Dogecoins or update names with it."),
+                _("Make sure you own the seed phrase or the private keys, before you request Dogecoins or names to be sent to this wallet.")
             ])
             self.show_warning(msg, title=_('Watch-only wallet'))
 
@@ -574,7 +574,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         msg = ''.join([
             _("You are in testnet mode."), ' ',
             _("Testnet coins and names are worthless."), '\n',
-            _("Testnet is separate from the main Namecoin network. It is used for testing.")
+            _("Testnet is separate from the main Dogecoin network. It is used for testing.")
         ])
         cb = QCheckBox(_("Don't show this again."))
         cb_checked = False
@@ -630,7 +630,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         try:
             new_path = self.wallet.save_backup()
         except BaseException as reason:
-            self.show_critical(_("Electrum-NMC was unable to copy your wallet file to the specified location.") + "\n" + str(reason), title=_("Unable to create backup"))
+            self.show_critical(_("Electrum-DOGE was unable to copy your wallet file to the specified location.") + "\n" + str(reason), title=_("Unable to create backup"))
             return
         if new_path:
             msg = _("A copy of your wallet file was created in")+" '%s'" % str(new_path)
@@ -740,7 +740,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
             # Hence, this menu item will be at a "uniform location re macOS processes"
             preferences_action.setMenuRole(QAction.PreferencesRole)  # make sure OS recognizes it as preferences
             # Add another preferences item, to also have a "uniform location for Electrum between different OSes"
-            tools_menu.addAction(_("Electrum-NMC preferences"), self.settings_dialog)
+            tools_menu.addAction(_("Electrum-DOGE preferences"), self.settings_dialog)
 
         tools_menu.addAction(_("&Network"), self.gui_object.show_network_dialog).setEnabled(bool(self.network))
         tools_menu.addAction(_("&Lightning Network"), self.gui_object.show_lightning_dialog).setEnabled(bool(self.wallet.has_lightning() and self.network))
@@ -764,7 +764,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         help_menu = menubar.addMenu(_("&Help"))
         help_menu.addAction(_("&About"), self.show_about)
         help_menu.addAction(_("&Check for updates"), self.show_update_check)
-        help_menu.addAction(_("&Official website"), lambda: webopen("https://www.namecoin.org"))
+        help_menu.addAction(_("&Official website"), lambda: webopen("https://www.dogecoin.org"))
         help_menu.addSeparator()
         help_menu.addAction(_("&Documentation"), lambda: webopen("http://docs.electrum.org/")).setShortcut(QKeySequence.HelpContents)
         help_menu.addAction(_("&Report Bug"), self.show_report_bug)
@@ -777,18 +777,18 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         d = self.network.get_donation_address()
         if d:
             host = self.network.get_parameters().server.host
-            self.pay_to_URI('namecoin:%s?message=donation for %s'%(d, host))
+            self.pay_to_URI('dogecoin:%s?message=donation for %s'%(d, host))
         else:
             self.show_error(_('No donation address for this server'))
 
     def show_about(self):
-        QMessageBox.about(self, "Electrum-NMC",
+        QMessageBox.about(self, "Electrum-DOGE",
                           (_("Version")+" %s" % ELECTRUM_VERSION + "\n\n" +
-                           _("Electrum-NMC's focus is speed, with low resource usage and simplifying Namecoin.") + " " +
+                           _("Electrum-DOGE's focus is speed, with low resource usage and simplifying Dogecoin.") + " " +
                            _("You do not need to perform regular backups, because your wallet can be "
                               "recovered from a secret phrase that you can memorize or write on paper.") + " " +
                            _("Startup times are instant because it operates in conjunction with high-performance "
-                              "servers that handle the most complicated parts of the Namecoin system.") + "\n\n" +
+                              "servers that handle the most complicated parts of the Dogecoin system.") + "\n\n" +
                            _("Uses icons from the Icons8 icon pack (icons8.com).")))
 
     def show_update_check(self, version=None):
@@ -798,10 +798,10 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         msg = ' '.join([
             _("Please report any bugs as issues on github:<br/>"),
             f'''<a href="{constants.GIT_REPO_ISSUES_URL}">{constants.GIT_REPO_ISSUES_URL}</a><br/><br/>''',
-            _("Before reporting a bug, upgrade to the most recent version of Electrum-NMC (latest release or git HEAD), and include the version number in your report."),
+            _("Before reporting a bug, upgrade to the most recent version of Electrum-DOGE (latest release or git HEAD), and include the version number in your report."),
             _("Try to explain not only what the bug is, but how it occurs.")
          ])
-        self.show_message(msg, title="Electrum-NMC - " + _("Reporting Bugs"), rich_text=True)
+        self.show_message(msg, title="Electrum-DOGE - " + _("Reporting Bugs"), rich_text=True)
 
     def notify_transactions(self):
         if self.tx_notification_queue.qsize() == 0:
@@ -841,9 +841,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         if self.tray:
             try:
                 # this requires Qt 5.9
-                self.tray.showMessage("Electrum-NMC", message, read_QIcon("electrum_dark_icon"), 20000)
+                self.tray.showMessage("Electrum-DOGE", message, read_QIcon("electrum_dark_icon"), 20000)
             except TypeError:
-                self.tray.showMessage("Electrum-NMC", message, QSystemTrayIcon.Information, 20000)
+                self.tray.showMessage("Electrum-DOGE", message, QSystemTrayIcon.Information, 20000)
 
 
 
@@ -1102,8 +1102,8 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         msg = ' '.join([
             _('Expiration date of your request.'),
             _('This information is seen by the recipient if you send them a signed payment request.'),
-            _('Expired requests have to be deleted manually from your list, in order to free the corresponding Namecoin addresses.'),
-            _('The namecoin address never expires and will always be part of this electrum-nmc wallet.'),
+            _('Expired requests have to be deleted manually from your list, in order to free the corresponding Dogecoin addresses.'),
+            _('The dogecoin address never expires and will always be part of this electrum-doge wallet.'),
         ])
         grid.addWidget(HelpLabel(_('Expires after'), msg), 2, 0)
         grid.addWidget(self.expires_combo, 2, 1)
@@ -1350,7 +1350,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         self.amount_e = BTCAmountEdit(self.get_decimal_point)
         self.payto_e = PayToEdit(self)
         msg = _('Recipient of the funds.') + '\n\n'\
-              + _('You may enter a Namecoin address, a label from your list of contacts (a list of completions will be proposed), or an alias (email-like address that forwards to a Namecoin address)')
+              + _('You may enter a Dogecoin address, a label from your list of contacts (a list of completions will be proposed), or an alias (email-like address that forwards to a Dogecoin address)')
         payto_label = HelpLabel(_('Pay to'), msg)
         grid.addWidget(payto_label, 1, 0)
         grid.addWidget(self.payto_e, 1, 1, 1, -1)
@@ -1489,7 +1489,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
 
         for o in outputs:
             if o.scriptpubkey is None:
-                self.show_error(_('Namecoin Address is None'))
+                self.show_error(_('Dogecoin Address is None'))
                 return True
             if o.value_display is None:
                 self.show_error(_('Invalid Amount'))
@@ -2105,7 +2105,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         grid.addWidget(QLabel(_("Node ID") + ':'), 0, 0)
         grid.addWidget(QLabel(lnaddr.pubkey.serialize().hex()), 0, 1)
         grid.addWidget(QLabel(_("Amount") + ':'), 1, 0)
-        # TODO: Namecoin: use invoice.amount_display (to hide 0.01 NMC in name
+        # TODO: Dogecoin: use invoice.amount_display (to hide 0.01 DOGE in name
         # coins).
         amount_str = self.format_amount(invoice.get_amount_sat()) + ' ' + self.base_unit()
         grid.addWidget(QLabel(amount_str), 1, 1)
@@ -2506,14 +2506,14 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
                 "private key, and verifying with the corresponding public key. The "
                 "address you have entered does not have a unique public key, so these "
                 "operations cannot be performed.") + '\n\n' + \
-               _('The operation is undefined. Not just in Electrum-NMC, but in general.')
+               _('The operation is undefined. Not just in Electrum-DOGE, but in general.')
 
     @protected
     def do_sign(self, address, message, signature, password):
         address  = address.text().strip()
         message = message.toPlainText().strip()
         if not bitcoin.is_address(address):
-            self.show_message(_('Invalid Namecoin address.'))
+            self.show_message(_('Invalid Dogecoin address.'))
             return
         if self.wallet.is_watching_only():
             self.show_message(_('This is a watching-only wallet.'))
@@ -2541,7 +2541,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         address  = address.text().strip()
         message = message.toPlainText().strip().encode('utf-8')
         if not bitcoin.is_address(address):
-            self.show_message(_('Invalid Namecoin address.'))
+            self.show_message(_('Invalid Dogecoin address.'))
             return
         try:
             # This can throw on invalid base64
@@ -2674,7 +2674,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         try:
             return tx_from_any(data)
         except BaseException as e:
-            self.show_critical(_("Electrum-NMC was unable to parse your transaction") + ":\n" + repr(e))
+            self.show_critical(_("Electrum-DOGE was unable to parse your transaction") + ":\n" + repr(e))
             return
 
     def import_channel_backup(self, encrypted: str):
@@ -2696,7 +2696,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         if not data:
             return
         # if the user scanned a bitcoin URI
-        if str(data).startswith("namecoin:"):
+        if str(data).startswith("dogecoin:"):
             self.pay_to_URI(data)
             return
         if data.startswith('channel_backup:'):
@@ -2717,7 +2717,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
             with open(fileName, "rb") as f:
                 file_content = f.read()  # type: Union[str, bytes]
         except (ValueError, IOError, os.error) as reason:
-            self.show_critical(_("Electrum-NMC was unable to open your transaction file") + "\n" + str(reason),
+            self.show_critical(_("Electrum-DOGE was unable to open your transaction file") + "\n" + str(reason),
                                title=_("Unable to read file or no transaction found"))
             return
         return self.tx_from_text(file_content)
@@ -2784,7 +2784,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         e.setReadOnly(True)
         vbox.addWidget(e)
 
-        defaultname = 'electrum-nmc-private-keys.csv'
+        defaultname = 'electrum-doge-private-keys.csv'
         select_msg = _('Select file to export your private keys to')
         hbox, filename_e, csv_button = filename_field(self, self.config, defaultname, select_msg)
         vbox.addLayout(hbox)
@@ -2842,7 +2842,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
             self.do_export_privkeys(filename, private_keys, csv_button.isChecked())
         except (IOError, os.error) as reason:
             txt = "\n".join([
-                _("Electrum-NMC was unable to produce a private key-export."),
+                _("Electrum-DOGE was unable to produce a private key-export."),
                 str(reason)
             ])
             self.show_critical(txt, title=_("Unable to create csv"))
@@ -3017,7 +3017,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
             self.fx.trigger_update()
         run_hook('close_settings_dialog')
         if d.need_restart:
-            self.show_warning(_('Please restart Electrum-NMC to activate the new GUI settings'), title=_('Success'))
+            self.show_warning(_('Please restart Electrum-DOGE to activate the new GUI settings'), title=_('Success'))
 
     def closeEvent(self, event):
         # It seems in some rare cases this closeEvent() is called twice
@@ -3043,7 +3043,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         self.gui_object.close_window(self)
 
     def plugins_dialog(self):
-        self.pluginsdialog = d = WindowModalDialog(self, _('Electrum-NMC Plugins'))
+        self.pluginsdialog = d = WindowModalDialog(self, _('Electrum-DOGE Plugins'))
 
         plugins = self.gui_object.plugins
 
@@ -3329,7 +3329,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         self.showing_cert_mismatch_error = True
         self.show_critical(title=_("Certificate mismatch"),
                            msg=_("The SSL certificate provided by the main server did not match the fingerprint passed in with the --serverfingerprint option.") + "\n\n" +
-                               _("Electrum-NMC will now exit."))
+                               _("Electrum-DOGE will now exit."))
         self.showing_cert_mismatch_error = False
         self.close()
 
@@ -3468,9 +3468,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger):
         elif name_pending_unverified:
             self.buy_names_register_button.show()
             if name_mine_unverified:
-                self.buy_names_status_label.setText(_("The server reports that you already registered ") + identifier_formatted + _(" in approximately the past 2 hours, but Electrum-NMC couldn't verify this.  If you believe the server is wrong, you can try to register it, but you may forfeit the name registration fee."))
+                self.buy_names_status_label.setText(_("The server reports that you already registered ") + identifier_formatted + _(" in approximately the past 2 hours, but Electrum-DOGE couldn't verify this.  If you believe the server is wrong, you can try to register it, but you may forfeit the name registration fee."))
             else:
-                self.buy_names_status_label.setText(_("The server reports that someone else already registered ") + identifier_formatted + _(" in approximately the past 2 hours, but Electrum-NMC couldn't verify this.  If you believe the server is wrong, you can try to register it, but you may forfeit the name registration fee."))
+                self.buy_names_status_label.setText(_("The server reports that someone else already registered ") + identifier_formatted + _(" in approximately the past 2 hours, but Electrum-DOGE couldn't verify this.  If you believe the server is wrong, you can try to register it, but you may forfeit the name registration fee."))
         else:
             self.buy_names_register_button.show()
             self.buy_names_status_label.setText(identifier_formatted + _(" is available to register!"))

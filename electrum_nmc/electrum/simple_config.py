@@ -25,7 +25,7 @@ FEE_DEPTH_TARGETS = [10000000, 5000000, 2000000, 1000000, 500000, 200000, 100000
 FEE_LN_ETA_TARGET = 2  # note: make sure the network is asking for estimates for this target
 
 # satoshi per kbyte
-# Namecoin's DEFAULT_MIN_RELAY_TX_FEE in validation.h is 100x that of Bitcoin.
+# Dogecoin's DEFAULT_MIN_RELAY_TX_FEE in validation.h is 100x that of Bitcoin.
 FEERATE_MAX_DYNAMIC = 1500000 * 100
 FEERATE_WARNING_HIGH_FEE = 600000 * 100
 FEERATE_FALLBACK_STATIC_FEE = 150000 * 100
@@ -33,7 +33,7 @@ FEERATE_DEFAULT_RELAY = 1000 * 100
 FEERATE_MAX_RELAY = 50000 * 100
 FEERATE_STATIC_VALUES = [1000 * 100, 2000 * 100, 5000 * 100, 10000 * 100, 20000 * 100, 30000 * 100,
                          50000 * 100, 70000 * 100, 100000 * 100, 150000 * 100, 200000 * 100, 300000 * 100]
-# Regtest feerate doesn't need Namecoin's 100x adjustment.
+# Regtest feerate doesn't need Dogecoin's 100x adjustment.
 FEERATE_REGTEST_HARDCODED = 180000  # for eclair compat
 
 FEE_RATIO_HIGH_WARNING = 0.05  # warn user if fee/amount for on-chain tx is higher than this
@@ -132,7 +132,7 @@ class SimpleConfig(Logger):
             path = os.path.join(path, 'simnet')
             make_dir(path, allow_symlink=False)
 
-        self.logger.info(f"electrum-nmc directory {path}")
+        self.logger.info(f"electrum-doge directory {path}")
         return path
 
     def rename_config_keys(self, config, keypairs, deprecation_warning=False):
@@ -221,7 +221,7 @@ class SimpleConfig(Logger):
         base_unit = self.user_config.get('base_unit')
         if isinstance(base_unit, str):
             self._set_key_in_user_config('base_unit', None)
-            map_ = {'nmc':8, 'mnmc':5, 'unmc':2, 'bits':2, 'swartz':0}
+            map_ = {'doge':8, 'mdoge':5, 'udoge':2, 'bits':2, 'swartz':0}
             decimal_point = map_.get(base_unit.lower())
             self._set_key_in_user_config('decimal_point', decimal_point)
 
@@ -288,7 +288,7 @@ class SimpleConfig(Logger):
         new_path = os.path.join(self.path, "wallets", "default_wallet")
 
         # default path in pre 1.9 versions
-        old_path = os.path.join(self.path, "electrum-nmc.dat")
+        old_path = os.path.join(self.path, "electrum-doge.dat")
         if os.path.exists(old_path) and not os.path.exists(new_path):
             os.rename(old_path, new_path)
 
@@ -668,7 +668,7 @@ class SimpleConfig(Logger):
 
 
 def read_user_config(path):
-    """Parse and store the user config settings in electrum-nmc.conf into user_config[]."""
+    """Parse and store the user config settings in electrum-doge.conf into user_config[]."""
     if not path:
         return {}
     config_path = os.path.join(path, "config")

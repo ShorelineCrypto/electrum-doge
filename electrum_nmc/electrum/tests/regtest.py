@@ -8,7 +8,7 @@ class TestLightning(unittest.TestCase):
 
     @staticmethod
     def run_shell(args, timeout=30):
-        process = subprocess.Popen(['electrum_nmc/electrum/tests/regtest/regtest.sh'] + args, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
+        process = subprocess.Popen(['electrum_doge/electrum/tests/regtest/regtest.sh'] + args, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         for line in iter(process.stdout.readline, b''):
             sys.stdout.write(line.decode(sys.stdout.encoding))
         process.wait(timeout=timeout)
@@ -53,7 +53,7 @@ class TestLightningAB(TestLightning):
         self.run_shell(['breach_with_spent_htlc'])
 
 
-class TestNamecoinABDefaultSeed(TestLightning):
+class TestDogecoinABDefaultSeed(TestLightning):
     agents = TestLightningAB.agents
 
     def test_name_registration(self):
@@ -63,11 +63,11 @@ class TestNamecoinABDefaultSeed(TestLightning):
         self.run_shell(['name_autoregister'])
 
 
-class TestNamecoinABSegwitSeed(TestNamecoinABDefaultSeed):
+class TestDogecoinABSegwitSeed(TestDogecoinABDefaultSeed):
     create_opts = "--seed_type segwit"
 
 
-class TestNamecoinABStandardSeed(TestNamecoinABDefaultSeed):
+class TestDogecoinABStandardSeed(TestDogecoinABDefaultSeed):
     create_opts = "--seed_type standard"
 
 

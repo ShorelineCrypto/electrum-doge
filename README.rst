@@ -1,19 +1,19 @@
-Electrum-NMC - Lightweight Namecoin client
+Electrum-DOGE - Lightweight Dogecoin client
 =====================================
 
 ::
 
-  Licence: GNU GPLv3+ for Electrum-DOGE components; CC BY 4.0 for Namecoin logo, MIT Licence for all other components
-  Author: The Namecoin developers; based on Electrum by Thomas Voegtlin and Electrum-DOGE by The Electrum-DOGE contributors
+  Licence: GNU GPLv3+ for Electrum-DOGE components; CC BY 4.0 for Dogecoin logo, MIT Licence for all other components
+  Author: The Dogecoin developers; based on Electrum by Thomas Voegtlin and Electrum-DOGE by The Electrum-DOGE contributors
   Language: Python (>= 3.6)
-  Homepage: https://www.namecoin.org/ ; original Electrum Homepage at https://electrum.org/
+  Homepage: https://www.dogecoin.org/ ; original Electrum Homepage at https://electrum.org/
 
 
-.. image:: https://travis-ci.org/namecoin/electrum-nmc.svg?branch=master
-    :target: https://travis-ci.org/namecoin/electrum-nmc
+.. image:: https://travis-ci.org/dogecoin/electrum-doge.svg?branch=master
+    :target: https://travis-ci.org/dogecoin/electrum-doge
     :alt: Build Status
-.. image:: https://coveralls.io/repos/github/namecoin/electrum-nmc/badge.svg?branch=master
-    :target: https://coveralls.io/github/namecoin/electrum-nmc?branch=master
+.. image:: https://coveralls.io/repos/github/dogecoin/electrum-doge/badge.svg?branch=master
+    :target: https://coveralls.io/github/dogecoin/electrum-doge?branch=master
     :alt: Test coverage statistics
 .. image:: https://d322cqt584bo4o.cloudfront.net/electrum/localized.svg
     :target: https://crowdin.com/project/electrum
@@ -26,11 +26,11 @@ Electrum-NMC - Lightweight Namecoin client
 Getting started
 ===============
 
-(*If you've come here looking to simply run Electrum-NMC,* `you may download it here`_.)
+(*If you've come here looking to simply run Electrum-DOGE,* `you may download it here`_.)
 
-.. _you may download it here: https://www.namecoin.org/download/betas/
+.. _you may download it here: https://www.dogecoin.org/download/betas/
 
-Electrum-NMC itself is pure Python, and so are most of the required dependencies,
+Electrum-DOGE itself is pure Python, and so are most of the required dependencies,
 but not everything. The following sections describe how to run from source, but here
 is a TL;DR::
 
@@ -72,20 +72,20 @@ Running from tar.gz
 -------------------
 
 If you downloaded the official package (tar.gz), you can run
-Electrum-NMC from its root directory without installing it on your
+Electrum-DOGE from its root directory without installing it on your
 system; all the pure python dependencies are included in the 'packages'
-directory. To run Electrum-NMC from its root directory, just do::
+directory. To run Electrum-DOGE from its root directory, just do::
 
-    ./run_electrum_nmc
+    ./run_electrum_doge
 
-You can also install Electrum-NMC on your system, by running this command::
+You can also install Electrum-DOGE on your system, by running this command::
 
     sudo apt-get install python3-setuptools python3-pip
     python3 -m pip install --user .
 
 This will download and install the Python dependencies used by
-Electrum-NMC instead of using the 'packages' directory.
-It will also place an executable named :code:`electrum-nmc` in :code:`~/.local/bin`,
+Electrum-DOGE instead of using the 'packages' directory.
+It will also place an executable named :code:`electrum-doge` in :code:`~/.local/bin`,
 so make sure that is on your :code:`PATH` variable.
 
 
@@ -94,8 +94,8 @@ Development version (git clone)
 
 Check out the code from GitHub::
 
-    git clone git://github.com/namecoin/electrum-nmc.git
-    cd electrum-nmc
+    git clone git://github.com/dogecoin/electrum-doge.git
+    cd electrum-doge
     git submodule update --init
 
 Run install (this should install dependencies)::
@@ -110,17 +110,17 @@ Compile the Qt UI::
 
 Copy over the www root::
 
-    rm -rf electrum_nmc/electrum/www
-    cp -a electrum/www electrum_nmc/electrum/www
+    rm -rf electrum_doge/electrum/www
+    cp -a electrum/www electrum_doge/electrum/www
 
 Create translations (optional)::
 
     sudo apt-get install python-requests gettext
     ./contrib/pull_locale
 
-Finally, to start Electrum-NMC::
+Finally, to start Electrum-DOGE::
 
-    ./run_electrum_nmc
+    ./run_electrum_doge
 
 
 
@@ -161,4 +161,4 @@ See :code:`contrib/android/Readme.md`.
 AuxPoW Branch
 =============
 
-Electrum-NMC also maintains an ``auxpow`` branch.  This branch is identical to the upstream Bitcoin version of Electrum (e.g. it doesn't have any name support or Namecoin rebranding), except that it supports AuxPoW (merged mining).  It may be useful as a starting point for porting Electrum to other AuxPoW-based cryptocurrencies.
+Electrum-DOGE also maintains an ``auxpow`` branch.  This branch is identical to the upstream Bitcoin version of Electrum (e.g. it doesn't have any name support or Dogecoin rebranding), except that it supports AuxPoW (merged mining).  It may be useful as a starting point for porting Electrum to other AuxPoW-based cryptocurrencies.

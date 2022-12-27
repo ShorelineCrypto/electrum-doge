@@ -1,7 +1,7 @@
 #:import VERSION electrum.version.ELECTRUM_VERSION
 
 Popup:
-    title: _("About Electrum-NMC")
+    title: _("About Electrum-DOGE")
     BoxLayout:
         orientation: 'vertical'
         spacing: '10dp'
@@ -19,17 +19,17 @@ Popup:
                 text: _('Licence')
                 size_hint_x: 0.4
             TopLabel:
-                text: "GNU GPLv3+ Licence for Electrum-DOGE components; CC BY 4.0 for Namecoin logo, MIT Licence for all other components"
+                text: "GNU GPLv3+ Licence for Electrum-DOGE components; CC BY 4.0 for Dogecoin logo, MIT Licence for all other components"
                 size_hint_x: 0.6
             TopLabel:
                 text: _('Homepage')
                 size_hint_x: 0.4
             TopLabel:
                 markup: True
-                text: '[color=6666ff][ref=x]https://www.namecoin.org/[/ref][/color]'
+                text: '[color=6666ff][ref=x]https://www.dogecoin.org/[/ref][/color]'
                 on_ref_press:
                     import webbrowser
-                    webbrowser.open("https://www.namecoin.org/")
+                    webbrowser.open("https://www.dogecoin.org/")
                 size_hint_x: 0.6
             TopLabel:
                 text: _('Developers')
@@ -38,7 +38,7 @@ Popup:
                 text: '\n'.join(['Jeremy Rand', 'Ahmed Bodiwala'])
                 size_hint_x: 0.6
         TopLabel:
-            text: _('Distributed by The Namecoin Project')
+            text: _('Distributed by The Dogecoin Project')
             padding: '0dp', '20dp'
         TopLabel:
             text: _('Based on Electrum-DOGE:')

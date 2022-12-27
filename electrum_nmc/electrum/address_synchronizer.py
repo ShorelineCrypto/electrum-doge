@@ -165,7 +165,7 @@ class AddressSynchronizer(Logger):
         prevout_n = txin.prevout.out_idx
         if address is None:
             address = self.get_txin_address(txin)
-        # Namecoin TODO: handle display for this case.
+        # Dogecoin TODO: handle display for this case.
         #if address:
         if address and not display:
             d = self.db.get_txo_addr(prevout_hash, address)
@@ -508,7 +508,7 @@ class AddressSynchronizer(Logger):
         for tx_hash in tx_deltas:
             delta = tx_deltas[tx_hash]
 
-            # Namecoin: hide 0.01 in name ops
+            # Dogecoin: hide 0.01 in name ops
             tx = self.db.transactions.get(tx_hash)
             if tx is not None:
                 sent_name, received_name, _ = get_wallet_name_delta(self, tx, domain)
@@ -821,14 +821,14 @@ class AddressSynchronizer(Logger):
         c = u = x = 0
         mempool_height = self.get_local_height() + 1  # height of next block
 
-        # Namecoin: get the utxos, so we can hide the 0.01 NMC in name ops
+        # Dogecoin: get the utxos, so we can hide the 0.01 DOGE in name ops
         utxos = self.get_addr_utxo(address)
 
         for txo, (tx_height, v, is_cb) in received.items():
             if txo in excluded_coins:
                 continue
 
-            # Namecoin: check if it's a name op, so we can hide the 0.01 NMC
+            # Dogecoin: check if it's a name op, so we can hide the 0.01 DOGE
             hidden_v = 0
             if txo not in sent:
                 prevout = TxOutpoint.from_str(txo)
@@ -839,7 +839,7 @@ class AddressSynchronizer(Logger):
                         # name_anyupdate has expired; hide the entire balance of this output
                         hidden_v = v
                     else:
-                        # Name is unexpired; only hide the 0.01 NMC
+                        # Name is unexpired; only hide the 0.01 DOGE
                         hidden_v = COIN // 100
 
             if is_cb and tx_height + COINBASE_MATURITY > mempool_height:
@@ -889,7 +889,7 @@ class AddressSynchronizer(Logger):
                 # The only_uno_txids argument is used to search for name outputs
                 # from a specific list of txid's, and only return those utxo's.
                 # In the future it might make more sense to search by
-                # txid+vout, but for compatibility with Namecoin Core's
+                # txid+vout, but for compatibility with Dogecoin Core's
                 # name_firstupdate syntax (where only a txid is specified, not
                 # a txid+vout) we don't do that right now.
                 if only_uno_txids is not None:

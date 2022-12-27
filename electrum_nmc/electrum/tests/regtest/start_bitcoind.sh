@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 export HOME=~
 set -eux pipefail
-mkdir -p ~/.namecoin
-cat > ~/.namecoin/namecoin.conf <<EOF
+mkdir -p ~/.dogecoin
+cat > ~/.dogecoin/dogecoin.conf <<EOF
 regtest=1
 txindex=1
 printtoconsole=1
@@ -16,10 +16,10 @@ fallbackfee=0.0002
 rpcbind=0.0.0.0
 rpcport=18554
 EOF
-rm -rf ~/.namecoin/regtest
-screen -S namecoind -X quit || true
-screen -S namecoind -m -d namecoind -regtest
+rm -rf ~/.dogecoin/regtest
+screen -S dogecoind -X quit || true
+screen -S dogecoind -m -d dogecoind -regtest
 sleep 6
-namecoin-cli createwallet test_wallet
-addr=$(namecoin-cli getnewaddress)
-namecoin-cli generatetoaddress 150 $addr > /dev/null
+dogecoin-cli createwallet test_wallet
+addr=$(dogecoin-cli getnewaddress)
+dogecoin-cli generatetoaddress 150 $addr > /dev/null

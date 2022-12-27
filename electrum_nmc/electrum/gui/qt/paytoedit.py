@@ -153,7 +153,7 @@ class PayToEdit(CompletionTextEdit, ScanQRTextEdit, Logger):
         if len(lines) == 1:
             data = lines[0]
             # try bip21 URI
-            if data.startswith("namecoin:"):
+            if data.startswith("dogecoin:"):
                 self.win.pay_to_URI(data)
                 return
             # try LN invoice
@@ -255,7 +255,7 @@ class PayToEdit(CompletionTextEdit, ScanQRTextEdit, Logger):
 
     def qr_input(self):
         data = super(PayToEdit,self).qr_input()
-        if data.startswith("namecoin:"):
+        if data.startswith("dogecoin:"):
             self.win.pay_to_URI(data)
             # TODO: update fee
 

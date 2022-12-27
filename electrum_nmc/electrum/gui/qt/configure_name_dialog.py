@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
-# Electrum-NMC - lightweight Namecoin client
-# Copyright (C) 2012-2018 Namecoin Developers, Electrum Developers
+# Electrum-DOGE - lightweight Dogecoin client
+# Copyright (C) 2012-2018 Dogecoin Developers, Electrum Developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files

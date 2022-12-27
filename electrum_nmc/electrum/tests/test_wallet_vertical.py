@@ -687,7 +687,7 @@ class TestWalletSending(TestCaseForTestnet):
 
     @mock.patch.object(wallet.Abstract_Wallet, 'save_db')
     def test_sending_between_p2wsh_2of3_and_p2wsh_p2sh_2of2(self, mock_save_db):
-        # Namecoin note: This test expects Bitcoin's relay fees, so we set them
+        # Dogecoin note: This test expects Bitcoin's relay fees, so we set them
         # here.
         simple_config.FEERATE_MAX_DYNAMIC = 1500000
         simple_config.FEERATE_DEFAULT_RELAY = 1000
@@ -870,7 +870,7 @@ class TestWalletSending(TestCaseForTestnet):
 
     @mock.patch.object(wallet.Abstract_Wallet, 'save_db')
     def test_rbf(self, mock_save_db):
-        # Namecoin note: This test expects Bitcoin's relay fees, so we set them
+        # Dogecoin note: This test expects Bitcoin's relay fees, so we set them
         # here.
         simple_config.FEERATE_MAX_DYNAMIC = 1500000
         simple_config.FEERATE_DEFAULT_RELAY = 1000

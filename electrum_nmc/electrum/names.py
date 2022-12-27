@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
-# Electrum-NMC - lightweight Namecoin client
-# Copyright (C) 2018-2022 Namecoin Developers
+# Electrum-DOGE - lightweight Dogecoin client
+# Copyright (C) 2018-2022 Dogecoin Developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -210,11 +210,11 @@ def identifier_to_namespace(identifier_bytes: bytes) -> Optional[str]:
         if len(label) < 1:
             return None
 
-        # Source: https://github.com/namecoin/proposals/blob/master/ifa-0001.md#keys
+        # Source: https://github.com/dogecoin/proposals/blob/master/ifa-0001.md#keys
         if len(label) > 63:
             return None
 
-        # Source: https://github.com/namecoin/proposals/blob/master/ifa-0001.md#keys
+        # Source: https://github.com/dogecoin/proposals/blob/master/ifa-0001.md#keys
         label_regex = r"^(xn--)?[a-z0-9]+(-[a-z0-9]+)*$"
         label_match = re.match(label_regex, label)
         if label_match is None:
@@ -234,10 +234,10 @@ def identifier_to_namespace(identifier_bytes: bytes) -> Optional[str]:
 
         # Max id/ identifier length is 255 chars according to wiki spec.  But we
         # don't need to check for this, because that's also the max length of an
-        # identifier under the Namecoin consensus rules.
+        # identifier under the Dogecoin consensus rules.
 
         # Same as d/ regex but without IDN prefix.
-        # TODO: this doesn't exactly match the https://wiki.namecoin.org spec.
+        # TODO: this doesn't exactly match the https://wiki.dogecoin.org spec.
         label_regex = r"^[a-z0-9]+(-[a-z0-9]+)*$"
         label_match = re.match(label_regex, label)
         if label_match is None:

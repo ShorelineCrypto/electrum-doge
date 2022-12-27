@@ -56,7 +56,7 @@ notification = app = ref = None
 
 # register widget cache for keeping memory down timeout to forever to cache
 # the data
-Cache.register('electrum_nmc_widgets', timeout=0)
+Cache.register('electrum_doge_widgets', timeout=0)
 
 from kivy.uix.screenmanager import Screen
 from kivy.uix.tabbedpanel import TabbedPanel
@@ -69,10 +69,10 @@ Factory.register('TabbedCarousel', module='electrum.gui.kivy.uix.screens')
 # inside markup.
 from kivy.core.text import Label
 Label.register('Roboto',
-               'electrum_nmc/electrum/gui/kivy/data/fonts/Roboto.ttf',
-               'electrum_nmc/electrum/gui/kivy/data/fonts/Roboto.ttf',
-               'electrum_nmc/electrum/gui/kivy/data/fonts/Roboto-Bold.ttf',
-               'electrum_nmc/electrum/gui/kivy/data/fonts/Roboto-Bold.ttf')
+               'electrum_doge/electrum/gui/kivy/data/fonts/Roboto.ttf',
+               'electrum_doge/electrum/gui/kivy/data/fonts/Roboto.ttf',
+               'electrum_doge/electrum/gui/kivy/data/fonts/Roboto-Bold.ttf',
+               'electrum_doge/electrum/gui/kivy/data/fonts/Roboto-Bold.ttf')
 
 
 from electrum.util import (NoDynamicFeeEstimates, NotEnoughFunds)
@@ -202,7 +202,7 @@ class ElectrumWindow(App, Logger):
 
     def on_new_intent(self, intent):
         data = str(intent.getDataString())
-        if str(intent.getScheme()).lower() in ('namecoin', 'lightning'):
+        if str(intent.getScheme()).lower() in ('dogecoin', 'lightning'):
             self._process_invoice_str(data)
 
     _invoice_intent_queued = None  # type: Optional[str]
@@ -214,7 +214,7 @@ class ElectrumWindow(App, Logger):
             self.switch_to('send')
             self._invoice_intent_queued = invoice
             return
-        if invoice.lower().startswith('namecoin:'):
+        if invoice.lower().startswith('dogecoin:'):
             self.set_URI(invoice)
         elif invoice.lower().startswith('lightning:'):
             self.set_ln_invoice(invoice)
@@ -433,7 +433,7 @@ class ElectrumWindow(App, Logger):
         if is_address(data):
             self.set_URI(data)
             return
-        if data.startswith('namecoin:'):
+        if data.startswith('dogecoin:'):
             self.set_URI(data)
             return
         if data.startswith('channel_backup:'):
@@ -542,7 +542,7 @@ class ElectrumWindow(App, Logger):
         currentActivity.startActivity(it)
 
     def build(self):
-        return Builder.load_file('electrum_nmc/electrum/gui/kivy/main.kv')
+        return Builder.load_file('electrum_doge/electrum/gui/kivy/main.kv')
 
     def _pause(self):
         if platform == 'android':
@@ -582,7 +582,7 @@ class ElectrumWindow(App, Logger):
         self.fiat_unit = self.fx.ccy if self.fx.is_enabled() else ''
         # default tab
         self.switch_to('history')
-        # bind intent for namecoin: URI scheme
+        # bind intent for dogecoin: URI scheme
         if platform == 'android':
             from android import activity
             from jnius import autoclass
@@ -694,7 +694,7 @@ class ElectrumWindow(App, Logger):
             self.show_error(_('Lightning is not enabled for this wallet'))
             return
         if not self.wallet.lnworker.channels:
-            warning1 = _("Lightning support in Electrum-NMC is experimental. "
+            warning1 = _("Lightning support in Electrum-DOGE is experimental. "
                          "Do not put large amounts in lightning channels.")
             warning2 = _("Funds stored in lightning channels are not recoverable "
                          "from your seed. You must backup your wallet file everytime "
@@ -736,7 +736,7 @@ class ElectrumWindow(App, Logger):
         elif name == 'wallets':
             self.wallets_dialog()
         elif name == 'status':
-            popup = Builder.load_file('electrum_nmc/electrum/gui/kivy/uix/ui_screens/'+name+'.kv')
+            popup = Builder.load_file('electrum_doge/electrum/gui/kivy/uix/ui_screens/'+name+'.kv')
             master_public_keys_layout = popup.ids.master_public_keys
             for xpub in self.wallet.get_master_public_keys()[1:]:
                 master_public_keys_layout.add_widget(TopLabel(text=_('Master Public Key')))
@@ -748,7 +748,7 @@ class ElectrumWindow(App, Logger):
         elif name.endswith("_dialog"):
             getattr(self, name)()
         else:
-            popup = Builder.load_file('electrum_nmc/electrum/gui/kivy/uix/ui_screens/'+name+'.kv')
+            popup = Builder.load_file('electrum_doge/electrum/gui/kivy/uix/ui_screens/'+name+'.kv')
             popup.open()
 
     @profiler
@@ -769,8 +769,8 @@ class ElectrumWindow(App, Logger):
                          module='electrum.gui.kivy.uix.qrcodewidget')
 
         # preload widgets. Remove this if you want to load the widgets on demand
-        #Cache.append('electrum_nmc_widgets', 'AnimatedPopup', Factory.AnimatedPopup())
-        #Cache.append('electrum_nmc_widgets', 'QRCodeWidget', Factory.QRCodeWidget())
+        #Cache.append('electrum_doge_widgets', 'AnimatedPopup', Factory.AnimatedPopup())
+        #Cache.append('electrum_doge_widgets', 'QRCodeWidget', Factory.QRCodeWidget())
 
         # load and focus the ui
         self.root.manager = self.root.ids['manager']
@@ -778,7 +778,7 @@ class ElectrumWindow(App, Logger):
         self.history_screen = None
         self.send_screen = None
         self.receive_screen = None
-        self.icon = "electrum_nmc/electrum/gui/icons/electrum_nmc.png"
+        self.icon = "electrum_doge/electrum/gui/icons/electrum_doge.png"
         self.tabs = self.root.ids['tabs']
 
     def update_interfaces(self, dt):
@@ -945,8 +945,8 @@ class ElectrumWindow(App, Logger):
                 from plyer import notification
             icon = (os.path.dirname(os.path.realpath(__file__))
                     + '/../../' + self.icon)
-            notification.notify('Electrum-NMC', message,
-                            app_icon=icon, app_name='Electrum-NMC')
+            notification.notify('Electrum-DOGE', message,
+                            app_icon=icon, app_name='Electrum-DOGE')
         except ImportError:
             self.logger.Error('Notification: needs plyer; `sudo python3 -m pip install plyer`')
 
@@ -980,7 +980,7 @@ class ElectrumWindow(App, Logger):
         self.qr_dialog(label.name, label.data, True)
 
     def show_error(self, error, width='200dp', pos=None, arrow_pos=None,
-                   exit=False, icon='atlas://electrum_nmc/electrum/gui/kivy/theming/light/error', duration=0,
+                   exit=False, icon='atlas://electrum_doge/electrum/gui/kivy/theming/light/error', duration=0,
                    modal=False):
         ''' Show an error Message Bubble.
         '''
@@ -992,7 +992,7 @@ class ElectrumWindow(App, Logger):
                   exit=False, duration=0, modal=False):
         ''' Show an Info Message Bubble.
         '''
-        self.show_error(error, icon='atlas://electrum_nmc/electrum/gui/kivy/theming/light/important',
+        self.show_error(error, icon='atlas://electrum_doge/electrum/gui/kivy/theming/light/important',
             duration=duration, modal=modal, exit=exit, pos=pos,
             arrow_pos=arrow_pos)
 
@@ -1033,7 +1033,7 @@ class ElectrumWindow(App, Logger):
             info_bubble.show_arrow = False
             img.allow_stretch = True
             info_bubble.dim_background = True
-            info_bubble.background_image = 'atlas://electrum_nmc/electrum/gui/kivy/theming/light/card'
+            info_bubble.background_image = 'atlas://electrum_doge/electrum/gui/kivy/theming/light/card'
         else:
             info_bubble.fs = False
             info_bubble.icon = icon

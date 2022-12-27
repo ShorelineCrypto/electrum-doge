@@ -188,9 +188,9 @@ class Test_bitcoin(ElectrumTestCase):
         sig1_b64 = base64.b64encode(sig1)
         sig2_b64 = base64.b64encode(sig2)
 
-        # Due to a difference in low-r signing, Namecoin Core and Electrum-NMC
+        # Due to a difference in low-r signing, Dogecoin Core and Electrum-DOGE
         # produce different signatures.  The values here are produced by
-        # Electrum-NMC but have been checked to verify with Namecoin Core.
+        # Electrum-DOGE but have been checked to verify with Dogecoin Core.
         # The difference in signing behaviour was introduced in
         # https://github.com/spesmilo/electrum/pull/5820.
         self.assertEqual(sig1_b64, b'H0u4fB+LyaNuPCdJMihq2MQR1H9yRJC2cUKKqo6gAUWGLARkz43rLY7QNKbJWq5eoBN+mK8ZD7hFuEzAXYpHFUk=')
@@ -843,7 +843,7 @@ class Test_keyImport(ElectrumTestCase):
         self.assertFalse(is_address("not an address"))
 
     def test_is_address_bad_checksums(self):
-        # Namecoin: frombtc raises an AssertionError when an invalid
+        # Dogecoin: frombtc raises an AssertionError when an invalid
         # Base58Check or Bech32 address is supplied, so we have to assert that
         # the AssertionError is raised, rather than just asserting False.
 

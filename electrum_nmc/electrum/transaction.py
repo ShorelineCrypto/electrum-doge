@@ -95,7 +95,7 @@ SIGHASH_ALL = 1
 
 class TxOutput:
     scriptpubkey: bytes
-    value: Union[int, str] # Includes the 0.01 NMC locked inside name coins.
+    value: Union[int, str] # Includes the 0.01 DOGE locked inside name coins.
 
     def __init__(self, *, scriptpubkey: bytes, value: Union[int, str], is_display: bool = False):
         self.scriptpubkey = scriptpubkey
@@ -118,7 +118,7 @@ class TxOutput:
         name_script = bfh(name_op_to_script(name_op))
         self.scriptpubkey = name_script + self.scriptpubkey
 
-        # Name ops include an extra 0.01 NMC locked inside the output
+        # Name ops include an extra 0.01 DOGE locked inside the output
         self.value_display = value_display
 
     def serialize_to_network(self) -> bytes:
@@ -172,7 +172,7 @@ class TxOutput:
         if self.name_op is None:
             return self.value
 
-        # Name ops include an extra 0.01 NMC locked inside the output, which we
+        # Name ops include an extra 0.01 DOGE locked inside the output, which we
         # hide here.
         return self.value - COIN // 100
 
@@ -186,7 +186,7 @@ class TxOutput:
             self.value = value
             return
 
-        # Name ops include an extra 0.01 NMC locked inside the output, which we
+        # Name ops include an extra 0.01 DOGE locked inside the output, which we
         # add here.
         self.value = value + COIN // 100
 
@@ -822,14 +822,14 @@ class Transaction:
         else:
             raise UnknownTxinType(f'cannot construct preimage_script for txin_type: {txin.script_type}')
 
-        # Namecoin:  For P2PK and P2PKH scripts, the preimage includes also
+        # Dogecoin:  For P2PK and P2PKH scripts, the preimage includes also
         # the name prefix.  P2SH and segwit do not.
         if txin.script_type in ['p2pkh', 'p2pk']:
             res = name_op_to_script(txin.name_op) + res
 
         return res
 
-    # TODO: Namecoin: Add the 0.01 NMC that's permanently locked in the name
+    # TODO: Dogecoin: Add the 0.01 DOGE that's permanently locked in the name
     # when serializing outputs
     @classmethod
     def serialize_input(self, txin: TxInput, script: str) -> str:
@@ -875,7 +875,7 @@ class Transaction:
         self._cached_network_ser_bytes = bfh(self.serialize())
         return self._cached_network_ser_bytes
 
-    # TODO: Namecoin: Signatures commit to the input value (per BIP143), but
+    # TODO: Dogecoin: Signatures commit to the input value (per BIP143), but
     # for name operations, the value in the txin does not include the locked
     # amount.  Fix this.
     def serialize_to_network(self, *, estimate_size=False, include_sigs=True, force_legacy=False) -> str:
@@ -1093,8 +1093,8 @@ def tx_from_any(raw: Union[str, bytes], *,
         return PartialTransaction.from_raw_psbt(raw)
     except BadHeaderMagic:
         if raw[:10] == b'EPTF\xff'.hex():
-            raise SerializationError("Partial transactions generated with old Electrum-NMC versions "
-                                     "(< 4.0) are no longer supported. Please upgrade Electrum-NMC on "
+            raise SerializationError("Partial transactions generated with old Electrum-DOGE versions "
+                                     "(< 4.0) are no longer supported. Please upgrade Electrum-DOGE on "
                                      "the other machine where this transaction was created.")
     try:
         tx = Transaction(raw)
@@ -1412,7 +1412,7 @@ class PartialTxInput(TxInput, PSBTSection):
         if self.name_op is None:
             return self.value_sats()
 
-        # Name ops include an extra 0.01 NMC locked inside the output, which we
+        # Name ops include an extra 0.01 DOGE locked inside the output, which we
         # hide here.
         return self.value_sats() - COIN // 100
 
@@ -1434,9 +1434,9 @@ class PartialTxInput(TxInput, PSBTSection):
 
     @property
     def scriptpubkey(self) -> Optional[bytes]:
-        # TODO: Namecoin: Upstream Electrum assumes that a scriptpubkey can
-        # always be derived from an address.  This is false for Namecoin
-        # because of the name prefix.  For Namecoin we currently deprioritize
+        # TODO: Dogecoin: Upstream Electrum assumes that a scriptpubkey can
+        # always be derived from an address.  This is false for Dogecoin
+        # because of the name prefix.  For Dogecoin we currently deprioritize
         # the "trusted address" feature here, but we should submit a PR to
         # upstream Electrum that makes it use a "trusted scriptpubkey" instead.
         if self.utxo:
@@ -1793,7 +1793,7 @@ class PartialTransaction(Transaction):
             self.locktime = locktime
         if version is not None:
             self.version = version
-        # Name ops require a Namecoin-version transaction
+        # Name ops require a Dogecoin-version transaction
         if any([o.name_op is not None for o in self.outputs()]):
             self.version = NAMECOIN_VERSION
         self.BIP69_sort()

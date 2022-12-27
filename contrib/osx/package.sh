@@ -17,15 +17,15 @@ export PATH=$PATH:~/bin
 . $(dirname "$0")/base.sh
 
 if [ -z "$1" ]; then
-    echo "Usage: $0 Electrum-NMC.app"
+    echo "Usage: $0 Electrum-DOGE.app"
     exit -127
 fi
 
 mkdir -p ~/bin
 
 if ! which ${genisoimage} > /dev/null 2>&1; then
-	mkdir -p /tmp/electrum-nmc-macos
-	cd /tmp/electrum-nmc-macos
+	mkdir -p /tmp/electrum-doge-macos
+	cd /tmp/electrum-doge-macos
 	info "Downloading cdrkit $cdrkit_version"
 	wget -nc ${cdrkit_download_path}/${cdrkit_file_name}
 	tar xvf ${cdrkit_file_name}
@@ -41,8 +41,8 @@ if ! which ${genisoimage} > /dev/null 2>&1; then
 fi
 
 if ! which dmg > /dev/null 2>&1; then
-    mkdir -p /tmp/electrum-nmc-macos
-	cd /tmp/electrum-nmc-macos
+    mkdir -p /tmp/electrum-doge-macos
+	cd /tmp/electrum-doge-macos
 	info "Downloading libdmg"
     LD_PRELOAD= git clone ${libdmg_url}
     cd libdmg-hfsplus
@@ -60,9 +60,9 @@ test -f "$plist" || fail "Info.plist not found"
 VERSION=$(grep -1 ShortVersionString $plist |tail -1|gawk 'match($0, /<string>(.*)<\/string>/, a) {print a[1]}')
 echo $VERSION
 
-rm -rf /tmp/electrum-nmc-macos/image > /dev/null 2>&1
-mkdir /tmp/electrum-nmc-macos/image/
-cp -r $1 /tmp/electrum-nmc-macos/image/
+rm -rf /tmp/electrum-doge-macos/image > /dev/null 2>&1
+mkdir /tmp/electrum-doge-macos/image/
+cp -r $1 /tmp/electrum-doge-macos/image/
 
 build_dir=$(dirname "$1")
 test -n "$build_dir" -a -d "$build_dir" || exit
@@ -73,16 +73,16 @@ ${genisoimage} \
     -D \
     -l \
     -probe \
-    -V "Electrum-NMC" \
+    -V "Electrum-DOGE" \
     -no-pad \
     -r \
     -dir-mode 0755 \
     -apple \
-    -o Electrum-NMC_uncompressed.dmg \
-    /tmp/electrum-nmc-macos/image || fail "Unable to create uncompressed dmg"
+    -o Electrum-DOGE_uncompressed.dmg \
+    /tmp/electrum-doge-macos/image || fail "Unable to create uncompressed dmg"
 
-dmg dmg Electrum-NMC_uncompressed.dmg electrum-nmc-$VERSION.dmg || fail "Unable to create compressed dmg"
-rm Electrum-NMC_uncompressed.dmg
+dmg dmg Electrum-DOGE_uncompressed.dmg electrum-doge-$VERSION.dmg || fail "Unable to create compressed dmg"
+rm Electrum-DOGE_uncompressed.dmg
 
 echo "Done."
-sha256sum electrum-nmc-$VERSION.dmg
+sha256sum electrum-doge-$VERSION.dmg

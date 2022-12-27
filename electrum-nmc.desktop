@@ -1,22 +1,22 @@
 # If you want Electrum to appear in a Linux app launcher ("start menu"), install this by doing:
-# sudo desktop-file-install electrum-nmc.desktop
+# sudo desktop-file-install electrum-doge.desktop
 
 [Desktop Entry]
-Comment=Lightweight Namecoin Client
-Exec=sh -c "PATH=\"\\$HOME/.local/bin:\\$PATH\"; electrum-nmc %u"
-GenericName[en_US]=Namecoin Wallet
-GenericName=Namecoin Wallet
-Icon=electrum_nmc
-Name[en_US]=Electrum Namecoin Wallet
-Name=Electrum Namecoin Wallet
+Comment=Lightweight Dogecoin Client
+Exec=sh -c "PATH=\"\\$HOME/.local/bin:\\$PATH\"; electrum-doge %u"
+GenericName[en_US]=Dogecoin Wallet
+GenericName=Dogecoin Wallet
+Icon=electrum_doge
+Name[en_US]=Electrum Dogecoin Wallet
+Name=Electrum Dogecoin Wallet
 Categories=Finance;Network;
 StartupNotify=true
-StartupWMClass=electrum-nmc
+StartupWMClass=electrum-doge
 Terminal=false
 Type=Application
-MimeType=x-scheme-handler/namecoin;
+MimeType=x-scheme-handler/dogecoin;
 Actions=Testnet;
 
 [Desktop Action Testnet]
-Exec=sh -c "PATH=\"\\$HOME/.local/bin:\\$PATH\"; electrum-nmc --testnet %u"
+Exec=sh -c "PATH=\"\\$HOME/.local/bin:\\$PATH\"; electrum-doge --testnet %u"
 Name=Testnet mode

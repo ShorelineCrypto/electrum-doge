@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #
-# Electrum-NMC - lightweight Namecoin client
-# Copyright (C) 2018-2019 Namecoin Developers
+# Electrum-DOGE - lightweight Dogecoin client
+# Copyright (C) 2018-2019 Dogecoin Developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -85,7 +85,7 @@ class UNOList(UTXOList):
         header_at_tip = self.network.blockchain().header_at_tip()
 
         if height is None or height <= 0:
-            # TODO: Namecoin: Take into account the fact that transactions may
+            # TODO: Dogecoin: Take into account the fact that transactions may
             # not be mined in the next block.
             blocks_until_mined = 1
 
@@ -108,7 +108,7 @@ class UNOList(UTXOList):
                 sendwhen_depth = queue_item["sendWhen"]["confirmations"]
                 blocks_until_firstupdate_sent = blocks_remaining_until_confirmations(height_estimated, header_at_tip['block_height'], sendwhen_depth)
 
-                # TODO: Namecoin: Take into account the fact that transactions
+                # TODO: Dogecoin: Take into account the fact that transactions
                 # may not be mined in the next block.
                 blocks_until_firstupdate_confirmed = blocks_until_firstupdate_sent + 1
 
@@ -145,7 +145,7 @@ class UNOList(UTXOList):
                     status = _('Update Pending')
                 else:
                     # utxo is name_firstupdate
-                    # TODO: Namecoin: Take into account the fact that
+                    # TODO: Dogecoin: Take into account the fact that
                     # transactions may not be mined in the next block.
                     status = _('Registration Pending, ETA %dmin')%10
 

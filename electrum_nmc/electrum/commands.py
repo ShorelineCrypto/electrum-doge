@@ -286,8 +286,8 @@ class Commands:
     @command('')
     async def restore(self, text, passphrase=None, password=None, encrypt_file=True, wallet_path=None):
         """Restore a wallet from text. Text can be a seed phrase, a master
-        public key, a master private key, a list of namecoin addresses
-        or namecoin private keys.
+        public key, a master private key, a list of dogecoin addresses
+        or dogecoin private keys.
         If you want to be prompted for an argument, type '?' or ':' (concealed)
         """
         # TODO create a separate command that blocks until wallet is synced
@@ -559,7 +559,7 @@ class Commands:
     @command('')
     async def dumpprivkeys(self):
         """Deprecated."""
-        return "This command is deprecated. Use a pipe instead: 'electrum-nmc listaddresses | electrum-nmc getprivatekeys - '"
+        return "This command is deprecated. Use a pipe instead: 'electrum-doge listaddresses | electrum-doge getprivatekeys - '"
 
     @command('')
     async def validateaddress(self, address):
@@ -1079,7 +1079,7 @@ class Commands:
 
     @command('w')
     async def setlabel(self, key, label, wallet: Abstract_Wallet = None):
-        """Assign a label to an item. Item may be a namecoin address or a
+        """Assign a label to an item. Item may be a dogecoin address or a
         transaction ID"""
         wallet.set_label(key, label)
 
@@ -1407,7 +1407,7 @@ class Commands:
         doesn't exist.
         """
 
-        # Handle Namecoin-Core-style options
+        # Handle Dogecoin-Core-style options
         if options is not None:
             if "nameEncoding" in options:
                 # TODO: make sure name_encoding is None
@@ -1544,7 +1544,7 @@ class Commands:
                 if "name" in o.name_op:
                     if o.name_op["name"] != identifier_bytes:
                         # Identifier mismatch.  This will definitely fail under
-                        # current Namecoin consensus rules, but in a future
+                        # current Dogecoin consensus rules, but in a future
                         # hardfork there might be multiple name outputs, so we
                         # might as well future-proof and scan the other
                         # outputs.
@@ -1814,8 +1814,8 @@ def eval_bool(x: str) -> bool:
 
 param_descriptions = {
     'privkey': 'Private key. Type \'?\' to get a prompt.',
-    'destination': 'Namecoin address, contact or alias',
-    'address': 'Namecoin address',
+    'destination': 'Dogecoin address, contact or alias',
+    'address': 'Dogecoin address',
     'seed': 'Seed phrase',
     'txid': 'Transaction ID',
     'pos': 'Position',
@@ -1825,8 +1825,8 @@ param_descriptions = {
     'pubkey': 'Public key',
     'message': 'Clear text message. Use quotes if it contains spaces.',
     'encrypted': 'Encrypted message',
-    'amount': 'Amount to be sent (in NMC). Type \'!\' to send the maximum available.',
-    'requested_amount': 'Requested amount (in NMC).',
+    'amount': 'Amount to be sent (in DOGE). Type \'!\' to send the maximum available.',
+    'requested_amount': 'Requested amount (in DOGE).',
     'outputs': 'list of ["address", amount]',
     'redeem_script': 'redeem script (hexadecimal)',
     'lightning_amount': "Amount sent or received in a submarine swap. Set it to 'dryrun' to receive a value",
@@ -1846,7 +1846,7 @@ command_options = {
     'labels':      ("-l", "Show the labels of listed addresses"),
     'nocheck':     (None, "Do not verify aliases"),
     'imax':        (None, "Maximum number of inputs"),
-    'fee':         ("-f", "Transaction fee (absolute, in NMC)"),
+    'fee':         ("-f", "Transaction fee (absolute, in DOGE)"),
     'feerate':     (None, "Transaction fee rate (in swartz/byte)"),
     'from_addr':   ("-F", "Source address (must be a wallet address; use sweep to spend from non-wallet address)."),
     'from_coins':  (None, "Source coins (must be in wallet; use sweep to spend from non-wallet address)."),
@@ -1867,7 +1867,7 @@ command_options = {
     'timeout':     (None, "Timeout in seconds"),
     'force':       (None, "Create new address beyond gap limit, if no more addresses are available."),
     'pending':     (None, "Show only pending requests."),
-    'push_amount': (None, 'Push initial amount (in NMC)'),
+    'push_amount': (None, 'Push initial amount (in DOGE)'),
     'expired':     (None, "Show only expired requests."),
     'paid':        (None, "Show only paid requests."),
     'show_addresses': (None, "Show input and output addresses"),
@@ -1880,8 +1880,8 @@ command_options = {
     'to_height':   (None, "Only show transactions that confirmed before given block height"),
     'iknowwhatimdoing': (None, "Acknowledge that I understand the full implications of what I am about to do"),
     'gossip':      (None, "Apply command to gossip node instead of wallet"),
-    'destination': (None, "Namecoin address, contact or alias"),
-    'amount':      (None, "Amount to be sent (in NMC). Type \'!\' to send the maximum available."),
+    'destination': (None, "Dogecoin address, contact or alias"),
+    'amount':      (None, "Amount to be sent (in DOGE). Type \'!\' to send the maximum available."),
     'outputs':     (None, "Currency outputs to add to a transaction in addition to a name operation."),
     'allow_existing': (None, "Allow pre-registering a name that already is registered.  Your registration fee will be forfeited until you can register the name after it expires."),
     'allow_early': (None, "Allow submitting a name registration while its pre-registration is still pending.  This increases the risk of an attacker stealing your name registration."),
@@ -1894,7 +1894,7 @@ command_options = {
     'name_new_txid':(None, "Transaction ID for the name pre-registration (returned by name_new; you can usually omit this)"),
     'trigger_txid':(None, "Broadcast the transaction when this txid reaches the specified number of confirmations"),
     'trigger_name':(None, "Broadcast the transaction when this name reaches the specified number of confirmations"),
-    'options':     (None, "Options in Namecoin-Core-style dict"),
+    'options':     (None, "Options in Dogecoin-Core-style dict"),
 }
 
 
@@ -1930,10 +1930,10 @@ config_variables = {
     'addrequest': {
         'ssl_privkey': 'Path to your SSL private key, needed to sign the request.',
         'ssl_chain': 'Chain of SSL certificates, needed for signed requests. Put your certificate at the top and the root CA at the end',
-        'url_rewrite': 'Parameters passed to str.replace(), in order to create the r= part of namecoin: URIs. Example: \"(\'file:///var/www/\',\'https://www.namecoin.org/\')\"',
+        'url_rewrite': 'Parameters passed to str.replace(), in order to create the r= part of dogecoin: URIs. Example: \"(\'file:///var/www/\',\'https://www.dogecoin.org/\')\"',
     },
     'listrequests':{
-        'url_rewrite': 'Parameters passed to str.replace(), in order to create the r= part of namecoin: URIs. Example: \"(\'file:///var/www/\',\'https://www.namecoin.org/\')\"',
+        'url_rewrite': 'Parameters passed to str.replace(), in order to create the r= part of dogecoin: URIs. Example: \"(\'file:///var/www/\',\'https://www.dogecoin.org/\')\"',
     }
 }
 
@@ -2002,8 +2002,8 @@ def add_global_options(parser):
     group = parser.add_argument_group('global options')
     group.add_argument("-v", dest="verbosity", help="Set verbosity (log levels)", default='')
     group.add_argument("-V", dest="verbosity_shortcuts", help="Set verbosity (shortcut-filter list)", default='')
-    group.add_argument("-D", "--dir", dest="electrum_path", help="electrum-nmc directory")
-    group.add_argument("-P", "--portable", action="store_true", dest="portable", default=False, help="Use local 'electrum-nmc_data' directory")
+    group.add_argument("-D", "--dir", dest="electrum_path", help="electrum-doge directory")
+    group.add_argument("-P", "--portable", action="store_true", dest="portable", default=False, help="Use local 'electrum-doge_data' directory")
     group.add_argument("--testnet", action="store_true", dest="testnet", default=False, help="Use Testnet")
     group.add_argument("--regtest", action="store_true", dest="regtest", default=False, help="Use Regtest")
     group.add_argument("--simnet", action="store_true", dest="simnet", default=False, help="Use Simnet")
@@ -2016,13 +2016,13 @@ def add_wallet_option(parser):
 def get_parser():
     # create main parser
     parser = argparse.ArgumentParser(
-        epilog="Run 'electrum-nmc help <command>' to see the help for a command")
+        epilog="Run 'electrum-doge help <command>' to see the help for a command")
     add_global_options(parser)
     add_wallet_option(parser)
     subparsers = parser.add_subparsers(dest='cmd', metavar='<command>')
     # gui
-    parser_gui = subparsers.add_parser('gui', description="Run Electrum-NMC's Graphical User Interface.", help="Run GUI (default)")
-    parser_gui.add_argument("url", nargs='?', default=None, help="namecoin URI (or bip70 file)")
+    parser_gui = subparsers.add_parser('gui', description="Run Electrum-DOGE's Graphical User Interface.", help="Run GUI (default)")
+    parser_gui.add_argument("url", nargs='?', default=None, help="dogecoin URI (or bip70 file)")
     parser_gui.add_argument("-g", "--gui", dest="gui", help="select graphical user interface", choices=['qt', 'kivy', 'text', 'stdio'])
     parser_gui.add_argument("-m", action="store_true", dest="hide_gui", default=False, help="hide GUI on startup")
     parser_gui.add_argument("-L", "--lang", dest="language", default=None, help="default language used in GUI")

@@ -4,11 +4,11 @@ set -eu
 
 # alice -> bob -> carol
 
-alice="./run_electrum_nmc --regtest -D /tmp/alice"
-bob="./run_electrum_nmc --regtest -D /tmp/bob"
-carol="./run_electrum_nmc --regtest -D /tmp/carol"
+alice="./run_electrum_doge --regtest -D /tmp/alice"
+bob="./run_electrum_doge --regtest -D /tmp/bob"
+carol="./run_electrum_doge --regtest -D /tmp/carol"
 
-bitcoin_cli="namecoin-cli -rpcuser=doggman -rpcpassword=donkey -rpcport=18554 -regtest"
+bitcoin_cli="dogecoin-cli -rpcuser=doggman -rpcpassword=donkey -rpcport=18554 -regtest"
 
 function new_blocks()
 {
@@ -18,7 +18,7 @@ function new_blocks()
 function wait_for_balance()
 {
     msg="wait until $1's balance reaches $2"
-    cmd="./run_electrum_nmc --regtest -D /tmp/$1"
+    cmd="./run_electrum_doge --regtest -D /tmp/$1"
     while balance=$($cmd getbalance | jq '[.confirmed, .unconfirmed] | to_entries | map(select(.value != null).value) | map(tonumber) | add ') && (( $(echo "$balance < $2" | bc -l) )); do
         sleep 1
 	msg="$msg."
@@ -30,7 +30,7 @@ function wait_for_balance()
 function wait_until_channel_open()
 {
     msg="wait until $1 sees channel open"
-    cmd="./run_electrum_nmc --regtest -D /tmp/$1"
+    cmd="./run_electrum_doge --regtest -D /tmp/$1"
     while channel_state=$($cmd list_channels | jq '.[0] | .state' | tr -d '"') && [ $channel_state != "OPEN" ]; do
         sleep 1
 	msg="$msg."
@@ -42,7 +42,7 @@ function wait_until_channel_open()
 function wait_until_channel_closed()
 {
     msg="wait until $1 sees channel closed"
-    cmd="./run_electrum_nmc --regtest -D /tmp/$1"
+    cmd="./run_electrum_doge --regtest -D /tmp/$1"
     while [[ $($cmd list_channels | jq '.[0].state' | tr -d '"') != "CLOSED" ]]; do
         sleep 1
 	msg="$msg."
@@ -75,7 +75,7 @@ if [[ $1 == "init" ]]; then
     create_opts="$3"
     echo "initializing $2 $create_opts"
     rm -rf /tmp/$2/
-    agent="./run_electrum_nmc --regtest -D /tmp/$2"
+    agent="./run_electrum_doge --regtest -D /tmp/$2"
     $agent create $create_opts --offline > /dev/null
     $agent setconfig --offline log_to_file True
     $agent setconfig --offline server 127.0.0.1:51001:t
@@ -96,14 +96,14 @@ fi
 
 # start daemons. Bob is started first because he is listening
 if [[ $1 == "start" ]]; then
-    agent="./run_electrum_nmc --regtest -D /tmp/$2"
+    agent="./run_electrum_doge --regtest -D /tmp/$2"
     $agent daemon -d
     $agent load_wallet
     sleep 1 # give time to synchronize
 fi
 
 if [[ $1 == "stop" ]]; then
-    agent="./run_electrum_nmc --regtest -D /tmp/$2"
+    agent="./run_electrum_doge --regtest -D /tmp/$2"
     $agent stop || true
 fi
 
@@ -423,7 +423,7 @@ function assert_core_expired()
 {
     expired_name=$1
 
-    echo "TODO: Upgrade Namecoin Core version"
+    echo "TODO: Upgrade Dogecoin Core version"
     name_result=$($bitcoin_cli name_show $expired_name)
     name_result_expired=$(echo $name_result | gojq -r .expired)
     assert_equal $name_result_expired true "Name not expired"
@@ -444,7 +444,7 @@ function assert_electrum_nx()
     assert_raises_error "$user name_show $nx_name" "Name purportedly never existed" || assert_raises_error "$user name_show $nx_name" "Name is purportedly expired"
 }
 
-# Equivalent to Namecoin Core's name_registration.py functional test.
+# Equivalent to Dogecoin Core's name_registration.py functional test.
 if [[ $1 == "name_registration" ]]; then
     # Expire any existing names from previous functional test runs.
     new_blocks 35
@@ -497,7 +497,7 @@ if [[ $1 == "name_registration" ]]; then
     assert_equal "$found" 1 "no name op found"
 
     echo "Check for exception with name_history and without -namehistory."
-    echo "TODO: Electrum-NMC doesn't support name_history yet."
+    echo "TODO: Electrum-DOGE doesn't support name_history yet."
 
     echo "first_update the names.  Check for too long values."
     #addr = node.getnewaddress ()
@@ -505,8 +505,8 @@ if [[ $1 == "name_registration" ]]; then
     echo $addr
     #txidA = self.firstupdateName (0, "name-0", newA, "value-0",
     #                              {"destAddress": addr})
-    # TODO: Here, we use a deterministic salt, whereas Namecoin Core uses
-    # non-DS.  Should probably test both DS and non-DS cases once Namecoin Core
+    # TODO: Here, we use a deterministic salt, whereas Dogecoin Core uses
+    # non-DS.  Should probably test both DS and non-DS cases once Dogecoin Core
     # tests both.
     txidA=$(name_firstupdate_broadcast "$alice" "name-0 --value value-0 --destination $addr --allow_early")
     #assert_raises_rpc_error (-8, 'value is too long',
@@ -532,7 +532,7 @@ if [[ $1 == "name_registration" ]]; then
     assert_electrum_nx "$alice" "name-0"
     #assert_raises_rpc_error (-4, 'name not found',
     #                         node.name_history, "name-0")
-    echo "TODO: Electrum-NMC doesn't support name_history yet."
+    echo "TODO: Electrum-DOGE doesn't support name_history yet."
     #self.generateToOther (1)
     new_blocks 1
     wait_for_chain_sync "$alice"
@@ -558,11 +558,11 @@ if [[ $1 == "name_registration" ]]; then
     echo "Skipping height field."
 
     #self.checkNameHistory (0, "name-0", ["value-0"])
-    echo "TODO: Electrum-NMC doesn't support name_history yet."
+    echo "TODO: Electrum-DOGE doesn't support name_history yet."
     #self.checkNameHistory (0, "name-1", ["x" * 520])
-    echo "TODO: Electrum-NMC doesn't support name_history yet."
+    echo "TODO: Electrum-DOGE doesn't support name_history yet."
 
-    echo "Add enough confirmations to make Electrum-NMC happy."
+    echo "Add enough confirmations to make Electrum-DOGE happy."
     new_blocks 11
     wait_for_chain_sync "$alice"
     data_core=$($bitcoin_cli name_show name-0)

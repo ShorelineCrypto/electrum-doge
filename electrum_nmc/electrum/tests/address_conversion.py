@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Electrum-NMC - lightweight Namecoin client
-# Copyright (C) 2019-2020 Namecoin Developers
+# Electrum-DOGE - lightweight Dogecoin client
+# Copyright (C) 2019-2020 Dogecoin Developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -23,12 +23,12 @@
 # CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-"""Conversion of addresses and keys from Bitcoin to Namecoin format
+"""Conversion of addresses and keys from Bitcoin to Dogecoin format
 
 This module provides methods that convert addresses and keys from the
-Bitcoin formats to Namecoin versions.  This can be applied in tests
+Bitcoin formats to Dogecoin versions.  This can be applied in tests
 where Bitcoin addresses and keys are used as magic strings upstream,
-but the code under test requires the Namecoin forms."""
+but the code under test requires the Dogecoin forms."""
 
 from electrum import bitcoin
 from electrum.constants import BitcoinMainnet, BitcoinTestnet
@@ -37,7 +37,7 @@ from electrum.util import bfh
 
 
 def frombtc(inp: str) -> str:
-    """Given a Bitcoin address or key, converts it to Namecoin format"""
+    """Given a Bitcoin address or key, converts it to Dogecoin format"""
 
     # If there is a trailing suffix on an URI with an address, remove it
     # and add it back after conversion.
@@ -54,7 +54,7 @@ def frombtc(inp: str) -> str:
         prefix = inp[:colon]
         stripped = inp[colon + 1:]
         if prefix == "bitcoin":
-            prefix = "namecoin"
+            prefix = "dogecoin"
         return prefix + ":" + frombtc(stripped)
 
     # Handle bech32 segwit data first.

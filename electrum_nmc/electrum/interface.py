@@ -70,7 +70,7 @@ BUCKET_NAME_OF_ONION_SERVERS = 'onion'
 
 # The default Bitcoin frame size limit of 1 MB doesn't work for AuxPoW-based
 # chains, because those chains' block headers have extra AuxPoW data.  A limit
-# of 10 MB works fine for Namecoin as of block height 418744 (5 MB fails after
+# of 10 MB works fine for Dogecoin as of block height 418744 (5 MB fails after
 # height 155232); we set a limit of 20 MB so that we have extra wiggle room.
 MAX_INCOMING_MSG_SIZE = 20_000_000  # in bytes
 
@@ -874,7 +874,7 @@ class Interface(Logger):
 
     @classmethod
     def client_name(cls) -> str:
-        return f'electrum-nmc/{version.ELECTRUM_VERSION}'
+        return f'electrum-doge/{version.ELECTRUM_VERSION}'
 
     def is_tor(self):
         return self.host.endswith('.onion')

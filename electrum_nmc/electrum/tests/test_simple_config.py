@@ -111,7 +111,7 @@ class Test_SimpleConfig(ElectrumTestCase):
         self.assertEqual({"something": "a"}, result)
 
     def test_depth_target_to_fee(self):
-        # Namecoin note: This test expects Bitcoin's relay fees, so we set them
+        # Dogecoin note: This test expects Bitcoin's relay fees, so we set them
         # here.
         simple_config.FEERATE_MAX_DYNAMIC = 1500000
         simple_config.FEERATE_DEFAULT_RELAY = 1000

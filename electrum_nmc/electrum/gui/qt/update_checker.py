@@ -20,8 +20,8 @@ from electrum.network import Network
 
 
 class UpdateCheck(QDialog, Logger):
-    url = "https://www.namecoin.org/download/electrum-nmc/version"
-    download_url = "https://www.namecoin.org/download/betas/#electrum-nmc"
+    url = "https://www.dogecoin.org/download/electrum-doge/version"
+    download_url = "https://www.dogecoin.org/download/betas/#electrum-doge"
 
     VERSION_ANNOUNCEMENT_SIGNING_KEYS = (
         "N8XRR1apE8bRVe47JkRNWZ3LLx3hD2jRNn",
@@ -29,7 +29,7 @@ class UpdateCheck(QDialog, Logger):
 
     def __init__(self, *, latest_version=None):
         QDialog.__init__(self)
-        self.setWindowTitle('Electrum-NMC - ' + _('Update Check'))
+        self.setWindowTitle('Electrum-DOGE - ' + _('Update Check'))
         self.content = QVBoxLayout()
         self.content.setContentsMargins(*[10]*4)
 
@@ -87,10 +87,10 @@ class UpdateCheck(QDialog, Logger):
                 self.detail_label.setText(_("You can download the new version from {}.").format(url))
             else:
                 self.heading_label.setText('<h2>' + _("Already up to date") + '</h2>')
-                self.detail_label.setText(_("You are already on the latest version of Electrum-NMC."))
+                self.detail_label.setText(_("You are already on the latest version of Electrum-DOGE."))
         else:
             self.heading_label.setText('<h2>' + _("Checking for updates...") + '</h2>')
-            self.detail_label.setText(_("Please wait while Electrum-NMC checks for available updates."))
+            self.detail_label.setText(_("Please wait while Electrum-DOGE checks for available updates."))
 
 
 class UpdateCheckThread(QThread, Logger):

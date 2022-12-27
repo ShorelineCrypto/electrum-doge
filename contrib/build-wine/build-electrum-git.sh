@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME_ROOT=electrum-nmc
+NAME_ROOT=electrum-doge
 
 # These settings probably don't need any change
 export WINEPREFIX=/opt/wine64
@@ -18,7 +18,7 @@ here="$(dirname "$(readlink -e "$0")")"
 
 . "$CONTRIB"/build_tools_util.sh
 
-pushd $WINEPREFIX/drive_c/electrum-nmc
+pushd $WINEPREFIX/drive_c/electrum-doge
 
 VERSION=`git describe --tags --dirty --always`
 info "Last commit: $VERSION"
@@ -31,18 +31,18 @@ if ! which msgfmt > /dev/null 2>&1; then
     fail "Please install gettext"
 fi
 for i in ./locale/*; do
-    dir=$WINEPREFIX/drive_c/electrum-nmc/electrum_nmc/electrum/$i/LC_MESSAGES
+    dir=$WINEPREFIX/drive_c/electrum-doge/electrum_doge/electrum/$i/LC_MESSAGES
     mkdir -p $dir
     msgfmt --output-file=$dir/electrum.mo $i/electrum.po || true
 done
 popd
 
-info "Compiling Namecoin-Qt forms..."
+info "Compiling Dogecoin-Qt forms..."
 ./contrib/make_qt_forms
 
 info "Copying www root..."
-rm -rf electrum_nmc/electrum/www
-cp -a electrum/www electrum_nmc/electrum/www
+rm -rf electrum_doge/electrum/www
+cp -a electrum/www electrum_doge/electrum/www
 
 find -exec touch -d '2000-11-11T11:11:11+00:00' {} +
 popd
@@ -53,9 +53,9 @@ $PYTHON -m pip install --no-dependencies --no-warn-script-location -r "$CONTRIB"
 
 $PYTHON -m pip install --no-dependencies --no-warn-script-location -r "$CONTRIB"/deterministic-build/requirements-hw.txt
 
-pushd $WINEPREFIX/drive_c/electrum-nmc
+pushd $WINEPREFIX/drive_c/electrum-doge
 # see https://github.com/pypa/pip/issues/2195 -- pip makes a copy of the entire directory
-info "Pip installing Electrum-NMC. This might take a long time if the project folder is large."
+info "Pip installing Electrum-DOGE. This might take a long time if the project folder is large."
 $PYTHON -m pip install --no-dependencies --no-warn-script-location .
 popd
 
@@ -76,7 +76,7 @@ info "building NSIS installer"
 wine "$WINEPREFIX/drive_c/Program Files (x86)/NSIS/makensis.exe" /DPRODUCT_VERSION=$VERSION electrum.nsi
 
 cd dist
-mv electrum-nmc-setup.exe $NAME_ROOT-$VERSION-setup.exe
+mv electrum-doge-setup.exe $NAME_ROOT-$VERSION-setup.exe
 cd ..
 
 info "Padding binaries to 8-byte boundaries, and fixing COFF image checksum in PE header"
@@ -121,4 +121,4 @@ EOF
     done
 )
 
-sha256sum dist/electrum-nmc*.exe
+sha256sum dist/electrum-doge*.exe
