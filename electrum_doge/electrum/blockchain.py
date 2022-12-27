@@ -567,7 +567,7 @@ class Blockchain(Logger):
             h, t = self.checkpoints[index]
             return t
         # new target
-        if (index * 240 + 239 > 19200) and (index * 240 + 239 + 1 > 240):
+        if (index * 240 + 239 > 371337) and (index * 240 + 239 + 1 > 240):
             # Dogecoin: Apply retargeting hardfork after AuxPoW start
             first = self.read_header(index * 240 - 1)
         else:
@@ -578,7 +578,7 @@ class Blockchain(Logger):
         bits = last.get('bits')
         target = self.bits_to_target(bits)
         nActualTimespan = last.get('timestamp') - first.get('timestamp')
-        nTargetTimespan = 14 * 24 * 60 * 60
+        nTargetTimespan = 4 * 60 * 60
         nActualTimespan = max(nActualTimespan, nTargetTimespan // 4)
         nActualTimespan = min(nActualTimespan, nTargetTimespan * 4)
         new_target = min(MAX_TARGET, (target * nActualTimespan) // nTargetTimespan)
