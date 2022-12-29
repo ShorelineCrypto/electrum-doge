@@ -4,8 +4,8 @@
 build/
 dist/
 *.egg/
-Electrum_NMC.egg-info/
-electrum_nmc/electrum/locale/
+Electrum_DOGE.egg-info/
+electrum_doge/electrum/locale/
 .devlocaltmp/
 *_trial_temp
 packages
@@ -19,9 +19,9 @@ bin/
 electrum_data
 
 # icons
-electrum_nmc/electrum/gui/kivy/theming/light-0.png
-electrum_nmc/electrum/gui/kivy/theming/light-1.png
-electrum_nmc/electrum/gui/kivy/theming/light.atlas
+electrum_doge/electrum/gui/kivy/theming/light-0.png
+electrum_doge/electrum/gui/kivy/theming/light-1.png
+electrum_doge/electrum/gui/kivy/theming/light.atlas
 
 # tests/tox
 .tox/
@@ -41,15 +41,15 @@ contrib/secp256k1/
 contrib/zbar/
 
 # shared objects
-electrum_nmc/electrum/*.so
-electrum_nmc/electrum/*.so.0
-electrum_nmc/electrum/*.dll
-electrum_nmc/electrum/*.dylib
+electrum_doge/electrum/*.so
+electrum_doge/electrum/*.so.0
+electrum_doge/electrum/*.dll
+electrum_doge/electrum/*.dylib
 
 # Dogecoin-Qt forms
-electrum_nmc/electrum/gui/qt/forms/configurenamedialog.py
-electrum_nmc/electrum/gui/qt/forms/dnsdialog.py
-electrum_nmc/electrum/gui/qt/forms/dnssubdomaindialog.py
+electrum_doge/electrum/gui/qt/forms/configurenamedialog.py
+electrum_doge/electrum/gui/qt/forms/dnsdialog.py
+electrum_doge/electrum/gui/qt/forms/dnssubdomaindialog.py
 
 # Dogecoin copy of www root
-electrum_nmc/electrum/www
+electrum_doge/electrum/www
