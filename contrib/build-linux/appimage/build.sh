@@ -7,7 +7,7 @@ CONTRIB="$PROJECT_ROOT/contrib"
 CONTRIB_APPIMAGE="$CONTRIB/build-linux/appimage"
 DISTDIR="$PROJECT_ROOT/dist"
 BUILDDIR="$CONTRIB_APPIMAGE/build/appimage"
-APPDIR="$BUILDDIR/electrum.AppDir"
+APPDIR="$BUILDDIR/electrum-doge.AppDir"
 CACHEDIR="$CONTRIB_APPIMAGE/.cache/appimage"
 
 export GCC_STRIP_BINARIES="1"
@@ -19,7 +19,7 @@ SQUASHFSKIT_COMMIT="ae0d656efa2d0df2fcac795b6823b44462f19386"
 
 
 VERSION=`git describe --tags --dirty --always`
-APPIMAGE="$DISTDIR/electrum-$VERSION-x86_64.AppImage"
+APPIMAGE="$DISTDIR/electrum-doge-$VERSION-x86_64.AppImage"
 
 . "$CONTRIB"/build_tools_util.sh
 
@@ -78,7 +78,7 @@ MKSQUASHFS="$BUILDDIR/squashfskit/squashfs-tools/mksquashfs"
 
 
 "$CONTRIB"/make_libsecp256k1.sh || fail "Could not build libsecp"
-cp -f "$PROJECT_ROOT/electrum/libsecp256k1.so.0" "$APPDIR/usr/lib/libsecp256k1.so.0" || fail "Could not copy libsecp to its destination"
+cp -f "$PROJECT_ROOT/electrum_doge/electrum/libsecp256k1.so.0" "$APPDIR/usr/lib/libsecp256k1.so.0" || fail "Could not copy libsecp to its destination"
 
 
 appdir_python() {
@@ -105,21 +105,25 @@ info "preparing electrum-locale."
         fail "Please install gettext"
     fi
     for i in ./locale/*; do
-        dir="$PROJECT_ROOT/electrum/$i/LC_MESSAGES"
+        dir="$PROJECT_ROOT/electrum_doge/electrum/$i/LC_MESSAGES"
         mkdir -p $dir
         msgfmt --output-file="$dir/electrum.mo" "$i/electrum.po" || true
     done
     popd
 )
 
-#info "Skipping Algo Module"
-#(
-#  cd "$CACHEDIR"
-#  git clone https://github.com/ShorelineCrypto/algolib "$CONTRIB/algolib"
-#  pushd "$CONTRIB"/algolib
-#  "$python" setup.py install
-#  popd
-#)
+#info "Compiling Dogecoin-Qt forms..."
+#pushd "$PROJECT_ROOT"
+#./contrib/make_qt_forms
+#popd
+
+
+info "Copying www root..."
+pushd "$PROJECT_ROOT"
+rm -rf electrum_doge/electrum/www
+cp -a electrum/www electrum_doge/electrum/www
+popd
+
 
 info "installing electrum and its dependencies."
 mkdir -p "$CACHEDIR/pip_cache"
@@ -137,8 +141,8 @@ cp "/usr/lib/x86_64-linux-gnu/libzbar.so.0" "$APPDIR/usr/lib/libzbar.so.0"
 
 
 info "desktop integration."
-cp "$PROJECT_ROOT/electrum.desktop" "$APPDIR/electrum.desktop"
-cp "$PROJECT_ROOT/electrum/gui/icons/electrum.png" "$APPDIR/electrum.png"
+cp "$PROJECT_ROOT/electrum-doge.desktop" "$APPDIR/electrum-doge.desktop"
+cp "$PROJECT_ROOT/electrum_doge/electrum/gui/icons/electrum_doge.png" "$APPDIR/electrum_doge.png"
 
 
 # add launcher
