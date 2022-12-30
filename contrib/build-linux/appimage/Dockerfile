@@ -24,6 +24,16 @@ RUN apt-get update -q && \
         libzbar0=0.10+doc-10ubuntu1  \
         libdbus-1-3=1.10.6-1ubuntu3.6 \
         libxkbcommon-x11-0=0.5.0-1ubuntu2.1 \
+        libc6-dev \
+        && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get autoremove -y && \
+    apt-get clean
+
+        # For compiling Dogecoin-Qt forms
+RUN apt-get update -q && \
+    apt-get install -qy \
+        pyqt5-dev-tools=5.5.1+dfsg-3ubuntu4 \
         && \
     rm -rf /var/lib/apt/lists/* && \
     apt-get autoremove -y && \
