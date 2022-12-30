@@ -40,8 +40,8 @@ def read_json(filename, default):
     return r
 
 
-GIT_REPO_URL = "https://github.com/dogecoin/electrum-doge"
-GIT_REPO_ISSUES_URL = "https://github.com/dogecoin/electrum-doge/issues"
+GIT_REPO_URL = "https://github.com/ShorelineCrypto/electrum-doge"
+GIT_REPO_ISSUES_URL = "https://github.com/ShorelineCrypto/electrum-doge/issues"
 BIP39_WALLET_FORMATS = read_json('bip39_wallet_formats.json', [])
 
 
