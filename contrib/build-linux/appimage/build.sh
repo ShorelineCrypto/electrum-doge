@@ -112,12 +112,6 @@ info "preparing electrum-locale."
     popd
 )
 
-#info "Compiling Dogecoin-Qt forms..."
-#pushd "$PROJECT_ROOT"
-#./contrib/make_qt_forms
-#popd
-
-
 info "Copying www root..."
 pushd "$PROJECT_ROOT"
 rm -rf electrum_doge/electrum/www
@@ -132,9 +126,15 @@ mkdir -p "$CACHEDIR/pip_cache"
 "$python" -m pip install --no-dependencies --no-warn-script-location --cache-dir "$CACHEDIR/pip_cache" -r "$CONTRIB/deterministic-build/requirements-hw.txt"
 "$python" -m pip install --no-dependencies --no-warn-script-location --cache-dir "$CACHEDIR/pip_cache" "$PROJECT_ROOT"
 
+## Install pyqt5 after requirements
+info "Compiling Dogecoin-Qt forms..."
+apt-get install -qy pyqt5-dev-tools
+pushd "$PROJECT_ROOT"
+./contrib/make_qt_forms
+popd
+
 # was only needed during build time, not runtime
 "$python" -m pip uninstall -y Cython
-
 
 info "copying zbar"
 cp "/usr/lib/x86_64-linux-gnu/libzbar.so.0" "$APPDIR/usr/lib/libzbar.so.0"
