@@ -77,7 +77,7 @@ base_units = {'DOGE':8, 'mDOGE':5, 'uDOGE':2, 'swartz':0}
 base_units_inverse = inv_dict(base_units)
 base_units_list = ['DOGE', 'mDOGE', 'uDOGE', 'swartz']  # list(dict) does not guarantee order
 
-DECIMAL_POINT_DEFAULT = 5  # mBTC
+DECIMAL_POINT_DEFAULT = 8  # DOGE
 
 
 class UnknownBaseUnit(Exception): pass
