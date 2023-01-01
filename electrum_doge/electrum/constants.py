@@ -51,15 +51,17 @@ class AbstractNet:
 
     @classmethod
     def max_checkpoint(cls) -> int:
-        # Dogecoin: We can't actually fully use the last checkpoint, because
+        # Namecoin: We can't actually fully use the last checkpoint, because
         # verifying the chunk following the last checkpoint requires having the
         # chunk for the last checkpoint, because of the timewarp hardfork.  So
         # we artificially return one fewer checkpoint than is available.
         #
         # It should be noted that this hack causes Electrum-DOGE to need at
         # least 2 checkpoints, whereas upstream Electrum only needs 1.
-        #return max(0, len(cls.CHECKPOINTS) * 2016 - 1)
-        return max(0, (len(cls.CHECKPOINTS)-1) * 2016 - 1)
+        #return max(0, (len(cls.CHECKPOINTS)-1) * 240 - 1)
+
+        # Dogecoin: no timewarp hardfork issue
+        return max(0, len(cls.CHECKPOINTS) * 240 - 1)
 
     @classmethod
     def rev_genesis_bytes(cls) -> bytes:
@@ -103,7 +105,7 @@ class BitcoinMainnet(AbstractNet):
     AUXPOW_START_HEIGHT = 371337
 
     NAME_EXPIRATION = 36000
-    NAME_SEMI_EXPIRATION = NAME_EXPIRATION - 2 * 2016
+    NAME_SEMI_EXPIRATION = NAME_EXPIRATION - 2 * 240
 
 
 class BitcoinTestnet(AbstractNet):
@@ -142,7 +144,7 @@ class BitcoinTestnet(AbstractNet):
     AUXPOW_START_HEIGHT = 0
 
     NAME_EXPIRATION = 36000
-    NAME_SEMI_EXPIRATION = NAME_EXPIRATION - 2 * 2016
+    NAME_SEMI_EXPIRATION = NAME_EXPIRATION - 2 * 240
 
 
 class BitcoinRegtest(BitcoinTestnet):
