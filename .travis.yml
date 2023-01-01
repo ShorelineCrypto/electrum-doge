@@ -15,7 +15,7 @@ cache:
   - pip: true
   - directories:
     - /tmp/electrum-build
-    - /tmp/namecoin-core
+    - /tmp/dogecoin-core
 script:
     - tox
     - ./contrib/check_nmc_rebranding
@@ -32,9 +32,9 @@ jobs:
         #- sudo add-apt-repository -y ppa:luke-jr/bitcoincore
         - sudo apt-get -qq update
         #- sudo apt-get install -yq bitcoind
-        - (echo "1e7f06030881fac5b8a6d33f497f1cab9a120189741ec81bc21e58d5cd93fa6f /tmp/namecoin-core/namecoin.tar.gz" | sha256sum -c) || (rm -f /tmp/namecoin-core/* && curl -o /tmp/namecoin-core/namecoin.tar.gz https://www.namecoin.org/files/namecoin-core/namecoin-core-0.21.0.1/namecoin-nc0.21.0.1-x86_64-linux-gnu.tar.gz)
-        - cat /tmp/namecoin-core/namecoin.tar.gz | tar -xz
-        - sudo cp -a namecoin-nc0.21.0.1/* /usr/
+        - (echo "1e7f06030881fac5b8a6d33f497f1cab9a120189741ec81bc21e58d5cd93fa6f /tmp/dogecoin-core/dogecoin.tar.gz" | sha256sum -c) || (rm -f /tmp/dogecoin-core/* && curl -o /tmp/dogecoin-core/dogecoin.tar.gz https://www.dogecoin.org/files/dogecoin-core/dogecoin-core-0.21.0.1/dogecoin-nc0.21.0.1-x86_64-linux-gnu.tar.gz)
+        - cat /tmp/dogecoin-core/dogecoin.tar.gz | tar -xz
+        - sudo cp -a dogecoin-nc0.21.0.1/* /usr/
         - sudo apt-get -y install libsecp256k1-0
         - pip install .[tests]
         - pip install electrumx

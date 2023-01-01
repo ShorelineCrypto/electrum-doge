@@ -1,6 +1,6 @@
 # Kivy GUI
 
-The Kivy GUI is used with Electrum-NMC on Android devices.
+The Kivy GUI is used with Electrum-DOGE on Android devices.
 To generate an APK file, follow these instructions.
 
 ## Android binary with Docker
@@ -24,7 +24,7 @@ folder.
 2. Build image
 
     ```
-    $ sudo docker build -t electrum-nmc-android-builder-img contrib/android
+    $ sudo docker build -t electrum-doge-android-builder-img contrib/android
     ```
 
 3. Build locale files
@@ -44,12 +44,12 @@ folder.
     ```
     $ mkdir --parents $PWD/.buildozer/.gradle
     $ sudo docker run -it --rm \
-        --name electrum-nmc-android-builder-cont \
+        --name electrum-doge-android-builder-cont \
         -v $PWD:/home/user/wspace/electrum \
         -v $PWD/.buildozer/.gradle:/home/user/.gradle \
         -v ~/.keystore:/home/user/.keystore \
         --workdir /home/user/wspace/electrum \
-        electrum-nmc-android-builder-img \
+        electrum-doge-android-builder-img \
         ./contrib/android/make_apk
     ```
     This mounts the project dir inside the container,
@@ -70,7 +70,7 @@ You probably need to clear the cache: `rm -rf .buildozer/android/platform/build-
 Assuming `adb` is installed:
 ```
 $ adb -d install -r bin/Electrum-*-arm64-v8a-debug.apk
-$ adb shell monkey -p org.namecoin.electrum_nmc.electrum_nmc 1
+$ adb shell monkey -p org.dogecoin.electrum_doge.electrum_doge 1
 ```
 
 
@@ -80,7 +80,7 @@ $ sudo docker run -it --rm \
     -v $PWD:/home/user/wspace/electrum \
     -v $PWD/.buildozer/.gradle:/home/user/.gradle \
     --workdir /home/user/wspace/electrum \
-    electrum-nmc-android-builder-img
+    electrum-doge-android-builder-img
 ```
 
 
@@ -95,7 +95,7 @@ adb logcat | grep python
 ```
 Better `grep` but fragile because of `cut`:
 ```
-adb logcat | grep -F "`adb shell ps | grep org.namecoin.electrum_nmc.electrum_nmc | cut -c14-19`"
+adb logcat | grep -F "`adb shell ps | grep org.dogecoin.electrum_doge.electrum_doge | cut -c14-19`"
 ```
 
 
@@ -104,7 +104,7 @@ Install Kivy.
 
 Build atlas: `(cd contrib/android/; make theming)`
 
-Run electrum-nmc with the `-g` switch: `electrum-nmc -g kivy`
+Run electrum-doge with the `-g` switch: `electrum-doge -g kivy`
 
 ### debug vs release build
 If you just follow the instructions above, you will build the apk
@@ -122,6 +122,6 @@ of Android does not let you access the internal storage of an app without root.
 (See [this](https://stackoverflow.com/q/9017073))
 ```
 $ adb shell
-$ run-as org.namecoin.electrum_nmc.electrum_nmc ls /data/data/org.namecoin.electrum_nmc.electrum_nmc/files/data
-$ run-as org.namecoin.electrum_nmc.electrum_nmc cp /data/data/org.namecoin.electrum_nmc.electrum_nmc/files/data/wallets/my_wallet /sdcard/some_path/my_wallet
+$ run-as org.dogecoin.electrum_doge.electrum_doge ls /data/data/org.dogecoin.electrum_doge.electrum_doge/files/data
+$ run-as org.dogecoin.electrum_doge.electrum_doge cp /data/data/org.dogecoin.electrum_doge.electrum_doge/files/data/wallets/my_wallet /sdcard/some_path/my_wallet
 ```

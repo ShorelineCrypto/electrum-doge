@@ -34,7 +34,7 @@ RUN apt-get update -q && \
     apt-get autoremove -y && \
     apt-get clean
 
-# pyqt5-dev-tools is for compiling Namecoin-Qt forms
+# pyqt5-dev-tools is for compiling Dogecoin-Qt forms
 RUN wget -nc https://dl.winehq.org/wine-builds/Release.key && \
         echo "c51bcb8cc4a12abfbd7c7660eaf90f49674d15e222c262f27e6c96429111b822 Release.key" | sha256sum -c - && \
         apt-key add Release.key && \

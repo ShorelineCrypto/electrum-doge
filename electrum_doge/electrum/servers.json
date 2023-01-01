@@ -1,0 +1,26 @@
+{
+    "electrum1.cipig.net": {
+        "pruning": "-",
+        "s": "20060",
+        "t": "10060",
+        "version": "1.4"
+    },
+    "electrum2.cipig.net": {
+        "pruning": "-",
+        "s": "20060",
+        "t": "10060",
+        "version": "1.4"
+    },
+    "electrum3.cipig.net": {
+        "pruning": "-",
+        "s": "20060",
+        "t": "10060",
+        "version": "1.4"
+    },
+    "electrum.shorelinecrypto.com": {
+        "pruning": "-",
+        "s": "20060",
+        "t": "10060",
+        "version": "1.4"
+    }
+}

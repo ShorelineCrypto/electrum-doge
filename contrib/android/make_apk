@@ -5,7 +5,7 @@ set -e
 CONTRIB_ANDROID="$(dirname "$(readlink -e "$0")")"
 ROOT_FOLDER="$CONTRIB_ANDROID"/../..
 PACKAGES="$ROOT_FOLDER"/packages/
-LOCALE="$ROOT_FOLDER"/electrum_nmc/electrum/locale/
+LOCALE="$ROOT_FOLDER"/electrum_doge/electrum/locale/
 
 if [ ! -d "$LOCALE" ]; then
   echo "Run pull_locale first!"

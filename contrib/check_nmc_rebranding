@@ -21,8 +21,8 @@ for i in **/*.py; do
 
     # 'b"Bitcoin seed"' is the BIP32 root preimage
     # main_window.py contains 'bitcoin' in its console namespace
-    # Payment Protocol is a known possible bug: https://github.com/namecoin/electrum-nmc/issues/108
-    # Ledger rebranding is a known bug: https://github.com/namecoin/electrum-nmc/issues/105
+    # Payment Protocol is a known possible bug: https://github.com/dogecoin/electrum-doge/issues/108
+    # Ledger rebranding is a known bug: https://github.com/dogecoin/electrum-doge/issues/105
     # bitcoin.png should be rebranded via the file contents, not the path.
     # bitcoin_key and bitcoin_sig are part of the Lightning protocol.
     if ./contrib/print_python_strings "$i" "bitcoin" \
@@ -31,7 +31,7 @@ for i in **/*.py; do
         | grep -v 'address_conversion\.py' \
         | grep -v 'electrum/tests/.*\.py.*bitcoin:' \
         | grep -v "org.bitcoin.protocols.payments" \
-        | grep -v "electrum_nmc/electrum/plugins/ledger/" \
+        | grep -v "electrum_doge/electrum/plugins/ledger/" \
         | grep -v "bitcoin.png" \
         | grep -v "bitcoin_key" \
         | grep -v "bitcoin_sig"; then
@@ -102,7 +102,7 @@ for i in **/*.py; do
     fi
 done
 
-EXCEPTIONS="--exclude=check_nmc_rebranding --exclude=RELEASE-NOTES --exclude-dir=.git"
+EXCEPTIONS="--exclude=check_doge_rebranding --exclude=RELEASE-NOTES --exclude-dir=.git"
 
 if grep -r $EXCEPTIONS "electrum.icns" ./; then
     echo "Rebranding needed"

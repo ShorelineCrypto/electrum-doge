@@ -6,7 +6,7 @@ CONTRIB_SDIST="$(dirname "$(readlink -e "$0")")"
 CONTRIB="$CONTRIB_SDIST"/../..
 ROOT_FOLDER="$CONTRIB"/..
 PACKAGES="$ROOT_FOLDER"/packages/
-LOCALE="$ROOT_FOLDER"/electrum_nmc/electrum/locale/
+LOCALE="$ROOT_FOLDER"/electrum_doge/electrum/locale/
 
 if [ ! -d "$PACKAGES" ]; then
   echo "Run make_packages first!"
@@ -23,10 +23,10 @@ git submodule update --init
         exit 1
     fi
     for i in ./locale/*; do
-        dir="$ROOT_FOLDER"/electrum_nmc/electrum/$i/LC_MESSAGES
+        dir="$ROOT_FOLDER"/electrum_doge/electrum/$i/LC_MESSAGES
         mkdir -p $dir
         msgfmt --output-file=$dir/electrum.mo $i/electrum.po || true
-        cp $i/electrum.po "$ROOT_FOLDER"/electrum_nmc/electrum/$i/electrum.po
+        cp $i/electrum.po "$ROOT_FOLDER"/electrum_doge/electrum/$i/electrum.po
     done
 )
 
@@ -38,7 +38,7 @@ git submodule update --init
     echo "<<<"
 
     # we could build the kivy atlas potentially?
-    #(cd electrum_nmc/electrum/gui/kivy/; make theming) || echo "building kivy atlas failed! skipping."
+    #(cd electrum_doge/electrum/gui/kivy/; make theming) || echo "building kivy atlas failed! skipping."
 
     find -exec touch -h -d '2000-11-11T11:11:11+00:00' {} +
 

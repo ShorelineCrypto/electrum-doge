@@ -1,13 +1,13 @@
 [app]
 
 # (str) Title of your application
-title = Electrum-NMC
+title = Electrum-DOGE
 
 # (str) Package name
-package.name = Electrum_NMC
+package.name = Electrum_DOGE
 
 # (str) Package domain (needed for android/ios packaging)
-package.domain = org.namecoin.electrum_nmc
+package.domain = org.dogecoin.electrum_doge
 
 # (str) Source code where the main.py live
 source.dir = .
@@ -20,9 +20,9 @@ source.exclude_exts = spec
 
 # (list) List of directory to exclude (let empty to not exclude anything)
 source.exclude_dirs = bin, build, dist, contrib,
-    electrum_nmc/electrum/tests,
-    electrum_nmc/electrum/gui/qt,
-    electrum_nmc/electrum/gui/kivy/theming/light,
+    electrum_doge/electrum/tests,
+    electrum_doge/electrum/gui/qt,
+    electrum_doge/electrum/gui/kivy/theming/light,
     packages/qdarkstyle,
     packages/qtpy
 # (list) List of exclusions using pattern matching
@@ -30,7 +30,7 @@ source.exclude_patterns = Makefile,setup*
 
 # (str) Application versioning (method 1)
 version.regex = APK_VERSION = '(.*)'
-version.filename = %(source.dir)s/electrum_nmc/electrum/version.py
+version.filename = %(source.dir)s/electrum_doge/electrum/version.py
 
 # (str) Application versioning (method 2)
 #version = 1.9.8
@@ -51,10 +51,10 @@ requirements =
 
 # (str) Presplash of the application
 #presplash.filename = %(source.dir)s/gui/kivy/theming/splash.png
-presplash.filename = %(source.dir)s/electrum_nmc/electrum/gui/icons/electrum_presplash.png
+presplash.filename = %(source.dir)s/electrum_doge/electrum/gui/icons/electrum_presplash.png
 
 # (str) Icon of the application
-icon.filename = %(source.dir)s/electrum_nmc/electrum/gui/icons/electrum_launcher.png
+icon.filename = %(source.dir)s/electrum_doge/electrum/gui/icons/electrum_launcher.png
 
 # (str) Supported orientation (one of landscape, portrait or all)
 orientation = portrait
@@ -107,7 +107,7 @@ android.ant_path = /opt/android/apache-ant
 
 # (list) List of Java files to add to the android project (can be java or a
 # directory containing the files)
-android.add_src = electrum_nmc/electrum/gui/kivy/data/java-classes/
+android.add_src = electrum_doge/electrum/gui/kivy/data/java-classes/
 
 android.gradle_dependencies = me.dm7.barcodescanner:zxing:1.9.8
 

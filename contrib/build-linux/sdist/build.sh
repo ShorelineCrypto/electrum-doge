@@ -9,15 +9,15 @@ DISTDIR="$PROJECT_ROOT/dist"
 
 . "$CONTRIB"/build_tools_util.sh
 
-info "Compiling Namecoin-Qt forms..."
+info "Compiling Dogecoin-Qt forms..."
 pushd "$PROJECT_ROOT"
 ./contrib/make_qt_forms
 popd
 
 info "Copying www root..."
 pushd "$PROJECT_ROOT"
-rm -rf electrum_nmc/electrum/www
-cp -a electrum/www electrum_nmc/electrum/www
+rm -rf electrum_doge/electrum/www
+cp -a electrum/www electrum_doge/electrum/www
 popd
 
 # note that at least py3.7 is needed, to have https://bugs.python.org/issue30693
