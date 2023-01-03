@@ -58,10 +58,10 @@ class AbstractNet:
         #
         # It should be noted that this hack causes Electrum-NMC to need at
         # least 2 checkpoints, whereas upstream Electrum only needs 1
-        #return max(0, (len(cls.CHECKPOINTS)-1) * 240 - 1)
+        return max(0, (len(cls.CHECKPOINTS)-2) * 240 - 1)
         #
         #Dogecoin does not need this timewarp fix
-        return max(0, len(cls.CHECKPOINTS) * 240 - 1)
+        #return max(0, len(cls.CHECKPOINTS) * 240 - 1)
 
  
 
