@@ -568,8 +568,10 @@ class Blockchain(Logger):
             return t
         # new target
         if (index * 240 + 239 > 371337) and (index * 240 + 239 + 1 > 240):
-            # Dogecoin: Apply retargeting hardfork after AuxPoW start
-            first = self.read_header(index * 240 - 1)
+            # Namecoin: Apply retargeting hardfork after AuxPoW start
+            # first = self.read_header(index * 240 - 1
+            # Dogecoin does not have this timewarp fix
+            first = self.read_header(index * 240)
         else:
             first = self.read_header(index * 240)
         last = self.read_header(index * 240 + 239)
